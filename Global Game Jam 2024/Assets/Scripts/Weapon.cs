@@ -19,7 +19,6 @@ public class Weapon : MonoBehaviour
         if (Input.GetButtonDown("Attack"))
         {
             //TODO: Implement Swing Animation
-            
         }
     }
 
@@ -32,7 +31,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void DealDamage()
+    private void DealDamage(Enemy enemy)
     {
         
     }
