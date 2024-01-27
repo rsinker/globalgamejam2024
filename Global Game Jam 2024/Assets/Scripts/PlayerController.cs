@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Managers")]
+    private AudioManager m_AudioManager;
+
     [Header("Components")]
     private Rigidbody2D rb;
     private Animator anim;
@@ -32,11 +35,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        m_AudioManager = AudioManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateAudio();
         if (Input.GetButtonDown("Dash") && canDash) {
             dashBufferCounter = dashBufferLength;
             StartCoroutine(Dash(GetInput()));
@@ -49,6 +54,14 @@ public class PlayerController : MonoBehaviour
         if (!isDashing) {
             MoveCharacter();
             ApplyLinearDrag();
+        }
+    }
+
+    void UpdateAudio()
+    {
+        if (Input.GetButtonDown("Interact"))
+        {
+            m_AudioManager.PlaySoundOnce("Scream");
         }
     }
 
