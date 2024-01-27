@@ -16,16 +16,31 @@ public class Count
 
 public class BoardManager : MonoBehaviour
 {
-    
 
-    int collumns = 8;
-    int rows = 8;
+
+    [SerializeField] int collumns = 8;
+    [SerializeField] int rows = 8;
+    //[SerializeField] int buffer = 3;
+    [SerializeField] int minSplats = 1;
+    [SerializeField] int maxSplats = 3;
+    [SerializeField] int minSplatSize = 4;
+    [SerializeField] int maxSplatSize = 8;
+
+
+    //[SerializeField] float bufferChanceWall;
+
+    //[SerializeField] float perlinResolution;
+
+    //Change to enum
+    string[,] boardData;
+
+
     Count wallCount = new Count(5, 9);
     //int Count foodCount(1, 5);
     public GameObject exit;
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
-    public GameObject[] enemyTiles;
+    //public GameObject[] enemyTiles;
     public GameObject[] outerWallTiles;
 
     private Transform boardHolder;
@@ -44,7 +59,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    void BoardSetup()
+    /*void BoardSetup()
     {
         boardHolder = new GameObject("Board").transform;
 
@@ -52,14 +67,96 @@ public class BoardManager : MonoBehaviour
         {
             for (int y = -1; y < rows + 1; y++)
             {
-                GameObject toInstantiate;
+                GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
                 if (x == -1 || x == collumns || y == -1 || y == rows)
                 {
                     toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
                 }
+                else if (x < buffer || collumns - x < buffer)
+                {
+                    float perlinOffset = Random.Range(0.0f, 100.0f);
+                    /*Debug.Log(bufferChanceWall + " vs " + Mathf.PerlinNoise(((float)x + perlinOffset) / perlinResolution, ((float)y) + perlinOffset)/perlinResolution);
+                    if (bufferChanceWall > Mathf.PerlinNoise(((float)x + perlinOffset) / perlinResolution, ((float)y) + perlinOffset) / perlinResolution)
+                    {
+                        toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
+                    }
+
+                   
+                }
                 else
                 {
                     toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                }
+
+                GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+                instance.transform.SetParent(boardHolder);
+            }
+        }
+    }*/
+
+    void BoardSetup()
+    {
+        boardHolder = new GameObject("BoardParentObj").transform;
+        boardData = new string[collumns, rows];
+
+        for (int x = 0; x < collumns; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                boardData[x,y] = "wall";
+            }
+        }
+        
+        // Make some kind of raised area
+        int numSplats = Random.Range(minSplats, maxSplats);
+        for (int i = 0; i < numSplats; i++)
+        {
+            int range = Random.Range(minSplatSize, maxSplatSize);
+            int y = Random.Range(range, rows - range);
+            int x = Random.Range(range, collumns - range);
+
+            Carve(x, y, range);
+        }
+
+        MakeBoard();
+    }
+
+    void Carve(int x, int y, int range)
+    {
+        for (int dx = -range; dx < range-1; dx++)
+        {
+            for (int dy = -range; dy < range - 1; dy++)
+            {
+                if ((dx-range)*(dx-range) + (dy-range)*(dy-range) <= range*range)
+                {
+                    boardData[x + dx, y + dy] = "floor";
+                }
+            }
+
+            /*int StartY = (int)(y - Mathf.Sqrt(Mathf.Abs((range + dx - (-range) * (range - dx + (-range))))));
+            int EndY = (int)(y + Mathf.Sqrt(Mathf.Abs((range + dx - (-range) * (range - dx + (-range))))));
+            for (int dy = StartY; dy < EndY; dy++)
+            {
+                boardData[x + dx, dy] = "floor";
+            }*/
+        }
+    }
+
+    void MakeBoard()
+    {
+        for (int x = 0; x < collumns; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                GameObject toInstantiate;
+
+                if (boardData[x,y] == "floor")
+                {
+                    toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                }
+                else
+                {
+                    toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
                 }
 
                 GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
@@ -93,8 +190,8 @@ public class BoardManager : MonoBehaviour
         BoardSetup();
         InitializeList();
         LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
-        int enemyCount = (int)Mathf.Log(level, 2f);
-        LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+        //int enemyCount = (int)Mathf.Log(level, 2f);
+        //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
         Instantiate(exit, new Vector3(collumns-1, rows-1, 0f), Quaternion.identity);
     }
 
