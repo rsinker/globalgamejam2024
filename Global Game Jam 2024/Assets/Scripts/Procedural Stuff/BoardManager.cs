@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
 using UnityEngine;
 
 [System.Serializable]
@@ -21,16 +20,12 @@ public class BoardManager : MonoBehaviour
 
     int collumns = 8;
     int rows = 8;
-    int outerBuffer = 2;
-
-    float chanceWall = 0.3f;
-
     Count wallCount = new Count(5, 9);
     //int Count foodCount(1, 5);
     public GameObject exit;
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
-    //public GameObject[] enemyTiles;
+    public GameObject[] enemyTiles;
     public GameObject[] outerWallTiles;
 
     private Transform boardHolder;
@@ -57,18 +52,10 @@ public class BoardManager : MonoBehaviour
         {
             for (int y = -1; y < rows + 1; y++)
             {
-                GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                GameObject toInstantiate;
                 if (x == -1 || x == collumns || y == -1 || y == rows)
                 {
                     toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
-                }
-                else if (x < outerBuffer || collumns - x < outerBuffer)
-                {
-                    float randomizer = Random.Range(0, 1);
-                    if (randomizer < chanceWall)
-                    {
-                        toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
-                    }
                 }
                 else
                 {
@@ -107,7 +94,7 @@ public class BoardManager : MonoBehaviour
         InitializeList();
         LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
         int enemyCount = (int)Mathf.Log(level, 2f);
-        //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+        LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
         Instantiate(exit, new Vector3(collumns-1, rows-1, 0f), Quaternion.identity);
     }
 
