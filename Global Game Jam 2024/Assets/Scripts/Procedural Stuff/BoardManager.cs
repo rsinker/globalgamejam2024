@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [System.Serializable]
 public class Count
@@ -13,6 +14,8 @@ public class Count
         maximum = max;
     }
 }
+
+
 
 public class BoardManager : MonoBehaviour
 {
@@ -32,16 +35,26 @@ public class BoardManager : MonoBehaviour
     //[SerializeField] float perlinResolution;
 
     //Change to enum
-    string[,] boardData;
+    Room currentRoom;
+
+
+    //string[,] boardData;
 
 
     Count wallCount = new Count(5, 9);
     //int Count foodCount(1, 5);
     public GameObject exit;
-    public GameObject[] floorTiles;
-    public GameObject[] wallTiles;
+    public Tile[] floorTiles;
+    public Tile[] wallTiles;
     //public GameObject[] enemyTiles;
-    public GameObject[] outerWallTiles;
+    public Tile[] outerWallTiles;
+
+    public GameObject upperDoor;
+    public GameObject leftDoor;
+    public GameObject rightDoor;
+
+    public Tilemap tilemap;
+    
 
     private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
@@ -97,49 +110,16 @@ public class BoardManager : MonoBehaviour
     void BoardSetup()
     {
         boardHolder = new GameObject("BoardParentObj").transform;
-        boardData = new string[collumns, rows];
+        currentRoom = new Room(collumns, rows);
 
-        for (int x = 0; x < collumns; x++)
-        {
-            for (int y = 0; y < rows; y++)
-            {
-                boardData[x,y] = "wall";
-            }
-        }
+        //Make some kind of raised area
+        //int numSplats = Random.Range(minSplats, maxSplats);
         
-        // Make some kind of raised area
-        int numSplats = Random.Range(minSplats, maxSplats);
-        for (int i = 0; i < numSplats; i++)
-        {
-            int range = Random.Range(minSplatSize, maxSplatSize);
-            int y = Random.Range(range, rows - range);
-            int x = Random.Range(range, collumns - range);
 
-            Carve(x, y, range);
-        }
+        currentRoom.CarveRoom(minSplats, maxSplats, minSplatSize, maxSplatSize, rows, collumns);
+        currentRoom.GenerateDoors(rows, collumns);
 
         MakeBoard();
-    }
-
-    void Carve(int x, int y, int range)
-    {
-        for (int dx = -range; dx < range-1; dx++)
-        {
-            for (int dy = -range; dy < range - 1; dy++)
-            {
-                if ((dx-range)*(dx-range) + (dy-range)*(dy-range) <= range*range)
-                {
-                    boardData[x + dx, y + dy] = "floor";
-                }
-            }
-
-            /*int StartY = (int)(y - Mathf.Sqrt(Mathf.Abs((range + dx - (-range) * (range - dx + (-range))))));
-            int EndY = (int)(y + Mathf.Sqrt(Mathf.Abs((range + dx - (-range) * (range - dx + (-range))))));
-            for (int dy = StartY; dy < EndY; dy++)
-            {
-                boardData[x + dx, dy] = "floor";
-            }*/
-        }
     }
 
     void MakeBoard()
@@ -148,19 +128,42 @@ public class BoardManager : MonoBehaviour
         {
             for (int y = 0; y < rows; y++)
             {
-                GameObject toInstantiate;
+                //GameObject toInstantiate;
 
-                if (boardData[x,y] == "floor")
+                if (currentRoom.GetTile(x, y) == "floor")
                 {
-                    toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                    tilemap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    //toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                }
+                else if (currentRoom.GetTile(x, y) == "obstacle")
+                {
+                    tilemap.SetTile(new Vector3Int(x, y, 0), wallTiles[Random.Range(0, wallTiles.Length)]);
+                    //toInstantiate = wallTiles[Random.Range(0, wallTiles.Length)];
+                }
+                else if (currentRoom.GetTile(x, y) == "upperDoor")
+                {
+                    GameObject instance = Instantiate(upperDoor, new Vector3(x+0.5f, y+0.5f, 0), Quaternion.identity) as GameObject;
+                    instance.transform.SetParent(boardHolder);
+                    //tilemap.SetTile(new Vector3Int(x, y, 0), upperDoor);
+                }
+                else if (currentRoom.GetTile(x, y) == "leftDoor")
+                {
+                    GameObject instance = Instantiate(leftDoor, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
+                    instance.transform.SetParent(boardHolder);
+                }
+                else if (currentRoom.GetTile(x, y) == "rightDoor")
+                {
+                    GameObject instance = Instantiate(rightDoor, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
+                    instance.transform.SetParent(boardHolder);
                 }
                 else
                 {
-                    toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
+                    tilemap.SetTile(new Vector3Int(x, y, 0), outerWallTiles[Random.Range(0, outerWallTiles.Length)]);
+                    //toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
                 }
 
-                GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-                instance.transform.SetParent(boardHolder);
+                //GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+                //instance.transform.SetParent(boardHolder);
             }
         }
     }
@@ -189,10 +192,16 @@ public class BoardManager : MonoBehaviour
     {
         BoardSetup();
         InitializeList();
-        LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
+        //LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
         //int enemyCount = (int)Mathf.Log(level, 2f);
         //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
         Instantiate(exit, new Vector3(collumns-1, rows-1, 0f), Quaternion.identity);
+    }
+
+    [ContextMenu("Paint")]
+    void Paint()
+    {
+
     }
 
 
