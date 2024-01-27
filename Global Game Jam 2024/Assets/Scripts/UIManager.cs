@@ -5,35 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private string sceneName;
-    public static UIManager Instance { get; private set; }
+    [SerializeField] private string m_MainScene;
+    
+    //private static UIManager Instance; //{ get; private set; }
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-        DontDestroyOnLoad(this.gameObject);
+        // DontDestroyOnLoad(this);
+
+        // if (Instance == null)
+        // {
+        //     Instance = this;
+        // }
+        // else
+        // {
+        //     Destroy(this.gameObject);
+        // }
+
+
     }
 
     public void playGame () {
 
-        //SceneManager.LoadScene(1);
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(m_MainScene);
 
     }
 
     public void quitGame () {
 
         Application.Quit();
-
     }
-
-    //Whos up playing with their Thaaaangg
-
 
 }

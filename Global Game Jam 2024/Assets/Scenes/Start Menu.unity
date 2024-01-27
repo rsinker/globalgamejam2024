@@ -1645,7 +1645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0778c0dc58717f941b8b4fedcb610603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Aivy's Scene
+  m_MainScene: Aivy's Scene
+  m_MainMenuScene: 
 --- !u!4 &1357923297
 Transform:
   m_ObjectHideFlags: 0
