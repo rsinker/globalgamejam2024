@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     private Rigidbody2D rb;
     private Animator anim;
+    [SerializeField] private Transform m_Weapon;
 
     [Header("Layer Masks")]
     [SerializeField] private LayerMask wallLayer;
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        WeaponFollowCursor();
         UpdateAudio();
         if (Input.GetButtonDown("Dash") && canDash) {
             dashBufferCounter = dashBufferLength;
@@ -55,6 +58,16 @@ public class PlayerController : MonoBehaviour
             MoveCharacter();
             ApplyLinearDrag();
         }
+    }
+
+    void WeaponFollowCursor()
+    {
+        Vector2 mouse_pos = Input.mousePosition;
+        Vector2 objectPos = Camera.main.WorldToScreenPoint(transform.position);
+        mouse_pos.x -= objectPos.x;
+        mouse_pos.y -= objectPos.y;
+        float angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg;
+        m_Weapon.rotation = Quaternion.Euler(new Vector3(0, 0, angle+90));
     }
 
     void UpdateAudio()
