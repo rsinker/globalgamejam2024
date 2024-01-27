@@ -33,18 +33,35 @@ public class AudioManager : MonoBehaviour
         s.loop = false;
         s.Play();
     }
-
     public void PlaySoundLooped(string soundName)
     {
         var s = GetAudioSource(soundName);
         s.loop = true;
-        GetAudioSource(soundName).Play();
+        s.Play();
     }
 
     public void StopSound(string soundName)
     {
         GetAudioSource(soundName).Stop();
     }
+
+    public void PlaySoundOnce(Sound s)
+    {
+        s.m_Source.loop = false;
+        s.m_Source.Play();
+    }
+
+    public void PlaySoundLooped(Sound s)
+    {
+        s.m_Source.loop = true;
+        s.m_Source.Play();
+    }
+
+    public void StopSound(Sound s)
+    {
+        s.m_Source.Stop();
+    }
+
 
     private AudioSource GetAudioSource(string soundName)
     {
