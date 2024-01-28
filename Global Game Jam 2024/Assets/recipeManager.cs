@@ -18,9 +18,6 @@ public class recipeManager : MonoBehaviour
 
     public void RecipeMade()
     {
-        GameManager.leftDoorLocked = false;
-        GameManager.rightDoorLocked = false;
-        GameManager.topDoorLocked = false;
-        GameManager.bottomDoorLocked = false;
+        
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -45,8 +46,7 @@ public class PlayerStats : MonoBehaviour
         m_CurrentHealth -= (int)damage;
         if (m_CurrentHealth < 0)
         {
-            m_PlayerController.enabled = false;
-            m_AudioManager.PlaySoundOnce(s_playerDeath);
+            Die();
         }
         else
         {
@@ -74,6 +74,14 @@ public class PlayerStats : MonoBehaviour
             RecieveDamage(6); //my stuff
         } //my stuff
     } 
+
+    void Die()
+    {
+        Time.timeScale = 0f;
+        m_PlayerController.enabled = false;
+        m_AudioManager.PlaySoundOnce(s_playerDeath);
+        SceneManager.LoadScene("Death Scene");
+    }
 
 }
 
