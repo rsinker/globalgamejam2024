@@ -5,7 +5,8 @@ using UnityEngine;
 public class MeleeEnemy : Enemy
 {
     [Header("Melee Enemy Stats")]
-    [SerializeField] float m_attackDuration = 1f;
+    [SerializeField] private float m_attackDuration = 1f;
+    [SerializeField] private float m_scaleIncrease = 0.1f;
 
     private bool m_isAttacking = false;
 
@@ -18,18 +19,23 @@ public class MeleeEnemy : Enemy
     {
         while (true)
         {
-            FollowPlayer();
+            if (!m_isAttacking)
+            {
+                FollowPlayer();
+            }
             yield return null;
-
         }
     }
 
     private IEnumerator Attack()
     {
+        DealDamage();
         m_isAttacking = true;
+        transform.localScale *= 1+m_scaleIncrease;
         m_Animator.SetBool("isAttacking", m_isAttacking);
         yield return new WaitForSeconds(m_attackDuration);
         m_isAttacking = false;
+        transform.localScale /= 1 + m_scaleIncrease;
         m_Animator.SetBool("isAttacking", false);
     }
 
@@ -37,7 +43,10 @@ public class MeleeEnemy : Enemy
     {
         if (collision.transform.CompareTag("Player"))
         {
-
+            if (!m_isAttacking)
+            {
+                StartCoroutine(Attack());
+            }
         }
     }
 }
