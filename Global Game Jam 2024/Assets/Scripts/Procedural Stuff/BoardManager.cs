@@ -67,6 +67,7 @@ public class BoardManager : MonoBehaviour
 
 
     private Transform boardHolder;
+    private Transform doorHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
 
     private int roomCountShop = 1;
@@ -96,6 +97,9 @@ public class BoardManager : MonoBehaviour
 
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private recipeManager recipeGenerator;
+
+
+    GameObject[] currDoors = new GameObject[4];
 
     void InitializeList()
     {
@@ -148,6 +152,7 @@ public class BoardManager : MonoBehaviour
     void BoardSetup()
     {
         boardHolder = new GameObject("BoardParentObj").transform;
+        doorHolder = new GameObject("DoorHolderObj").transform;
         recipeGenerator.PickNewRecipe();
         if (gameMap[mapCoordinates.x, mapCoordinates.y] == null)
         {
@@ -155,12 +160,13 @@ public class BoardManager : MonoBehaviour
             bool spawningBoss = CheckIfBoss();
             if (spawningBoss == true)
             {
-                Debug.Log("Spawn Boss");
+                //Debug.Log("Spawn Boss");
                 currentRoom = new Room(ProceduralConstants.FAKE_BOSS_SIZE, ProceduralConstants.FAKE_BOSS_SIZE);
                 GameManager.state = GameState.InBossArea;
             }
             else if (spawningShop == false) 
             {
+                ToggleDoors(false);
                 currentRoom = new Room(collumns, rows);
                 currentRoom.CarveRoom(minSplats, maxSplats, minSplatSize, maxSplatSize, rows, collumns);
                 currentRoom.GenerateDoors(rows, collumns);
@@ -229,27 +235,31 @@ public class BoardManager : MonoBehaviour
                 else if (currentRoom.GetTile(x, y) == "upperDoor")
                 {
                     GameObject instance = Instantiate(upperDoor, new Vector3(x+0.5f, y+0.5f, 0), Quaternion.identity) as GameObject;
-                    instance.transform.SetParent(boardHolder);
+                    instance.transform.SetParent(doorHolder);
                     floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
                     //floorMap.SetTile(new Vector3Int(x, y, 0), upperDoor);
+                    currDoors[0] = instance;
                 }
                 else if (currentRoom.GetTile(x, y) == "leftDoor")
                 {
                     GameObject instance = Instantiate(leftDoor, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
-                    instance.transform.SetParent(boardHolder);
+                    instance.transform.SetParent(doorHolder);
                     floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    currDoors[1] = instance;
                 }
                 else if (currentRoom.GetTile(x, y) == "rightDoor")
                 {
                     GameObject instance = Instantiate(rightDoor, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
-                    instance.transform.SetParent(boardHolder);
+                    instance.transform.SetParent(doorHolder);
                     floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    currDoors[2] = instance;
                 }
                 else if (currentRoom.GetTile(x, y) == "bottomDoor")
                 {
                     GameObject instance = Instantiate(bottomDoor, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
-                    instance.transform.SetParent(boardHolder);
+                    instance.transform.SetParent(doorHolder);
                     floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    currDoors[3] = instance;
                 }
                 else if (currentRoom.GetTile(x, y) == "blender")
                 {
@@ -319,8 +329,13 @@ public class BoardManager : MonoBehaviour
 
     public void MoveToNewRoom(Door.Direction direction)
     {
+        ToggleDoors(false);
         //Debug.Log("Leaving room from: " + direction.ToString());
         Destroy(boardHolder.gameObject);
+        if (doorHolder != null)
+        {
+            Destroy(doorHolder.gameObject);
+        }
         floorMap.ClearAllTiles();
         wallMap.ClearAllTiles();
 
@@ -368,8 +383,10 @@ public class BoardManager : MonoBehaviour
 
         SetupScene();
         SpawnPlayer(direction);
+        GameManager.roomCount++;
+        GameManager.enemiesKilledInRoom = 0;
 
-        Debug.Log("Load: " + mapCoordinates);
+        //Debug.Log("Load: " + mapCoordinates);
     }
 
     void SpawnPlayer(Door.Direction direction)
@@ -466,6 +483,11 @@ public class BoardManager : MonoBehaviour
             //disable leftDoor
             shopLeftDoor.SetActive(false);
         }
+
+        //GameManager.topDoorLocked = false;
+        //GameManager.bottomDoorLocked = false;
+        //GameManager.leftDoorLocked = false;
+        //GameManager.rightDoorLocked = false;
     }
 
     void MakeBoss()
@@ -495,6 +517,11 @@ public class BoardManager : MonoBehaviour
             //disable leftDoor
             bossLeftDoor.SetActive(false);
         }
+
+        //GameManager.topDoorLocked = false;
+        //GameManager.bottomDoorLocked = false;
+        //GameManager.leftDoorLocked = false;
+        //GameManager.rightDoorLocked = false;
     }
 
     void MakeHub()
@@ -503,6 +530,11 @@ public class BoardManager : MonoBehaviour
 
         boardHolder = new GameObject("BoardParentObj").transform;
         currentRoom = new Room(ProceduralConstants.FAKE_HUB_SIZE, ProceduralConstants.FAKE_HUB_SIZE);
+
+        //GameManager.topDoorLocked = false;
+        //GameManager.bottomDoorLocked = false;
+        //GameManager.leftDoorLocked = false;
+        //GameManager.rightDoorLocked = false;
     }
 
     bool CheckIfBoss()
@@ -519,7 +551,7 @@ public class BoardManager : MonoBehaviour
             }
             else
             {
-                Debug.Log(randomizer + ": No Boss from chance: " + chanceBoss);
+                //Debug.Log(randomizer + ": No Boss from chance: " + chanceBoss);
                 chanceBoss += ProceduralConstants.CHANCE_OF_BOSS_INCREMENT;
                 return false;
 
@@ -534,6 +566,14 @@ public class BoardManager : MonoBehaviour
         enemySpawner.SpawnEnemies();
     }
 
+    void ToggleDoors(bool toggle)
+    {
+        if (doorHolder != null)
+        {
+            doorHolder.gameObject.SetActive(toggle);
+        }
+    }
+
 
     // Start is called before the first frame update
     void Awake()
@@ -546,6 +586,9 @@ public class BoardManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (GameManager.enemiesKilledInRoom > 5)
+        {
+            ToggleDoors(true);
+        }
     }
 }

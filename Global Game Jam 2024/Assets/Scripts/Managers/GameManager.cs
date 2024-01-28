@@ -16,13 +16,18 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public static GameState state = GameState.MainMenu;
     //public static string currentRecipe;
-    public static bool leftDoorLocked = true;
-    public static bool rightDoorLocked = true;
-    public static bool topDoorLocked = true;
-    public static bool bottomDoorLocked = true;
+    /*public static bool leftDoorLocked = false;
+    public static bool rightDoorLocked = false;
+    public static bool topDoorLocked = false;
+    public static bool bottomDoorLocked = false;*/
 
 
     public static bool dialogueRunning = false;
+
+    public static int roomCount = 0;
+    public const float ROOMS_TO_DIFFICULTY = 0.2f;
+
+    public static int enemiesKilledInRoom = 0;
 
 
     private void Awake()
@@ -39,12 +44,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void ResetRoomLock()
+    /*public static void ResetRoomLock()
     {
+        enemiesKilledInRoom = 0;
         leftDoorLocked = true;
         rightDoorLocked = true;
         topDoorLocked = true;
         bottomDoorLocked = true;
     }
+
+    public static void UnlockDoors()
+    {
+        leftDoorLocked = false;
+        rightDoorLocked = false;
+        topDoorLocked = false;
+        bottomDoorLocked = false;
+    }*/
 }
 

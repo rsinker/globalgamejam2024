@@ -92,6 +92,8 @@ abstract public class Enemy : MonoBehaviour
         currentHealth -= recievedDamage;
         if(currentHealth < 0)
         {
+            Die();
+            GameManager.enemiesKilledInRoom++;
             m_Animator.SetBool("isDead", true);
             DropIngredients();
             //TODO: Animate death, set destroy to delete gameobject after animation finished.
@@ -106,6 +108,11 @@ abstract public class Enemy : MonoBehaviour
             //m_DamageFlash.CallDamageFlash();
             m_AudioManager.PlaySoundOnce(m_hurt);
         }
+    }
+
+    public virtual void Die()
+    {
+
     }
 
     public void DealDamage()

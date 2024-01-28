@@ -20,7 +20,25 @@ public class EnemySpawner : MonoBehaviour
     
     public void SpawnEnemies()
     {
-        //enemyParent = new GameObject("EnemyParentObj").transform;
+        /*enemyParent = new GameObject("EnemyParentObj").transform;
+        int difficulty = (int)(GameManager.roomCount * GameManager.ROOMS_TO_DIFFICULTY);
+        Debug.Log("Difficulty: " + difficulty);
+        //Index correct difficulty of enemy
+        if (difficulty == 0)
+        {
+            int index = Random.Range(0, cookingManager.m_Stage1Enemys.Length);
+            cookingManager.m_Stage1Enemys[index];
+        }
+        else if (difficulty == 1)
+        {
+            int index = Random.Range(0, cookingManager.m_Stage2Enemys.Length);
+            cookingManager.m_Stage2Enemys[index];
+        }
+        else if (difficulty == 2)
+        {
+            int index = Random.Range(0, cookingManager.m_Stage3Enemys.Length);
+            cookingManager.m_Stage3Enemys[index];
+        }*/
 
         int randEnemyIndex = Random.Range(0, currentEnemyArray.Length);
         GameObject toSpawn = currentEnemyArray[randEnemyIndex];
