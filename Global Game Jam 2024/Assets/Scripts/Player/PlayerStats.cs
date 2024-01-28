@@ -17,7 +17,7 @@ public class PlayerStats : MonoBehaviour
     private PlayerController m_PlayerController;
     private DamageFlash m_PlayerDamageFlash;
     private PlayerManager m_PlayerManager;
-    [SerializeField] Animator m_Animator; //my stuff
+    [SerializeField] Animator m_Animator; 
 
     [Header("Sound Effects")]
     [SerializeField] private string s_playerHurt;
@@ -34,22 +34,18 @@ public class PlayerStats : MonoBehaviour
     }
     public void RecieveDamage(float damage)
     {
-        //my stuff
-        m_Animator.SetBool("isDead", _isDead); //my stuff
+        m_Animator.SetBool("isDead", _isDead); 
 
         if (m_PlayerController.isDashing) return;
         m_CurrentHealth -= (int)damage;
         if (m_CurrentHealth < 0)
         {
             m_PlayerController.enabled = false;
-            //play death animation
-            //isDead = true; //my stuff
             m_AudioManager.PlaySoundOnce(s_playerDeath);
         }
         else
         {
-            //play hit animation
-            m_Animator.SetTrigger("gotHit"); //my stuff
+            m_Animator.SetTrigger("gotHit"); 
             m_AudioManager.PlaySoundOnce(s_playerHurt);
             m_PlayerDamageFlash.CallDamageFlash();
            
