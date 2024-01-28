@@ -2,17 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeEnemy : MonoBehaviour
+public class MeleeEnemy : Enemy
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Melee Enemy Stats")]
+    [SerializeField] float m_attackDuration = 1f;
+
+    private bool m_isAttacking = false;
+
+    protected override void Start()
     {
-        
+        base.Start();
+        StartCoroutine(CombatLoop());
+    }
+    protected override IEnumerator CombatLoop()
+    {
+        while (true)
+        {
+            FollowPlayer();
+            yield return null;
+
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator Attack()
     {
-        
+        m_isAttacking = true;
+        m_Animator.SetBool("isAttacking", m_isAttacking);
+        yield return new WaitForSeconds(m_attackDuration);
+        m_isAttacking = false;
+        m_Animator.SetBool("isAttacking", false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+
+        }
     }
 }

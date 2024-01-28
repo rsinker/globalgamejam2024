@@ -10,6 +10,7 @@ public class ProjectileEnemy : Enemy
     [SerializeField] private float m_AttackCooldown = 3f;
     [SerializeField] private float m_AttackLength = 1f;
     [SerializeField] private float m_AttackFrequency = .1f;
+
     private bool m_IsAttacking = false;
 
     [Header("Projectile Components")]
@@ -25,7 +26,7 @@ public class ProjectileEnemy : Enemy
     protected override void Start()
     {
         base.Start();
-        StartCoroutine(EnemyLoop());
+        StartCoroutine(CombatLoop());
     }
     private void FixedUpdate()
     {
@@ -44,7 +45,7 @@ public class ProjectileEnemy : Enemy
         }
     }
 
-    IEnumerator EnemyLoop()
+    protected override IEnumerator CombatLoop()
     {
         while (true)
         {
@@ -55,8 +56,6 @@ public class ProjectileEnemy : Enemy
             yield return StartCoroutine(Shoot());
             m_Animator.SetBool("isShooting", false);
             m_IsAttacking = false;
-
-
         }
         
     }
@@ -67,9 +66,7 @@ public class ProjectileEnemy : Enemy
         {
             return;
         }
-        transform.position = Vector2.MoveTowards(transform.position, m_PlayerController.transform.position, speed);
-        Vector2 direction = (m_PlayerController.transform.position - transform.position).normalized;
-        m_SpriteRenderer.flipX = direction.x < 0;
+        FollowPlayer();
     }
 
 
