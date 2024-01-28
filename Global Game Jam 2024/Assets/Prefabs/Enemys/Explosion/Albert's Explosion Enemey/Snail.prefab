@@ -166,14 +166,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3f789b62de5fc4f8f85aeb4ccd8855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
-  damage: 1
+  maxHealth: 20
+  damage: 50
   speed: 0.004
   m_deathAnimationDelay: 0.5
   m_shrinkFactor: 0.25
   m_shrinkLength: 0.1
-  m_Ingredients: []
-  stage: 1
+  m_Ingredients:
+  - {fileID: 11400000, guid: 5304f22bdb13bb448866abdbc4620623, type: 2}
+  - {fileID: 11400000, guid: 6cd84d3404ea05e44a39cdb095e09df7, type: 2}
+  - {fileID: 11400000, guid: 9d6dbafe4e55132429f21d137754e728, type: 2}
+  stage: 3
   m_DamageFlash: {fileID: 0}
   m_hurt: 
   m_death: 
