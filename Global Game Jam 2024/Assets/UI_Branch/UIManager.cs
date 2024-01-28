@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     public UnityEngine.Video.VideoPlayer videoPlayer;
     
     //private static UIManager Instance; //{ get; private set; }
-    private void Start()
+    private void Awake()
     {
         // DontDestroyOnLoad(this);
 
@@ -24,18 +24,38 @@ public class UIManager : MonoBehaviour
         //     Destroy(this.gameObject);
         // }
 
-        //videoPlayer = GetComponent<UnityEngine.Video.VideoPlayer>();
+        videoPlayer = GetComponent<UnityEngine.Video.VideoPlayer>();
 
-        //videoPlayer.Pause();
+        videoPlayer.Stop();
 
-        //videoPlayer.isLooping = false;
+        videoPlayer.isLooping = false;
+
+        videoPlayer.loopPointReached += checkCutscene;
+
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            videoPlayer.Stop();
+            SceneManager.LoadScene(m_MainScene);
+        }
 
 
     }
 
+    public void playCutscene () {
+
+        videoPlayer.Play();
+
+        // if (videoPlayer.isPlaying == false) {
+
+        //     SceneManager.LoadScene(m_MainScene);
+
+        // }
+
+    }
+    
+    
     public void playGame () {
 
-        //videoPlayer.Play();
+        videoPlayer.Stop();
         SceneManager.LoadScene(m_MainScene);
 
     }
@@ -46,9 +66,19 @@ public class UIManager : MonoBehaviour
 
     }
 
+    void checkCutscene (UnityEngine.Video.VideoPlayer videoPlayer) {
+
+        SceneManager.LoadScene(m_MainScene);
+
+    }
+    
+    
     void update(){
 
+        //videoPlayer.loopPointReached += checkCutscene;
+        
         if(Input.GetKeyDown(KeyCode.Space)) {
+            videoPlayer.Stop();
             SceneManager.LoadScene(m_MainScene);
         }
 
