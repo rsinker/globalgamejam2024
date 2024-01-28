@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Testing Stuff.unity
+    path: Assets/Scenes/Archive/Testing Stuff.unity
     guid: c0c9b6a87d4f340e6beb2ba69452eee8
   - enabled: 1
     path: Assets/Scenes/Room Gen Workspace.unity
