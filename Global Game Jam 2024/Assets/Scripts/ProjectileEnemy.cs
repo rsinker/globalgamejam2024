@@ -15,6 +15,10 @@ public class ProjectileEnemy : Enemy
     [SerializeField] private Projectile p_Projectile;
     [SerializeField] private Transform p_SpawnPoint;
 
+    [Header("Projectile Stats")]
+    [SerializeField] public float m_ProjectileSpeed = 1f;
+    [SerializeField][Range(0.0f, 1.0f)] public float m_BulletFollow = 1f;
+
     [Header("References")]
     private PlayerController _playerController;
 
@@ -23,16 +27,16 @@ public class ProjectileEnemy : Enemy
     protected override void Start()
     {
         base.Start();
-        _playerController = PlayerController.Instance;
+        _playerController = PlayerManager.Instance._playerController;
     }
     protected override void Update()
     {
         base.Update();
         //Test code
-        if (Input.GetButtonDown("Attack"))
-        {
-            StartCoroutine(Shoot());
-        }
+        //if (Input.GetButtonDown("Attack"))
+        //{
+            //StartCoroutine(Shoot());
+        //}
     }
 
     private IEnumerator Shoot()
@@ -42,9 +46,12 @@ public class ProjectileEnemy : Enemy
         {
             Projectile p = Instantiate(p_Projectile, p_SpawnPoint.position, Quaternion.identity, p_SpawnPoint);
             p.t_Player = _playerController.transform;
+            p.m_Enemy = this;
             yield return new WaitForSeconds(m_AttackFrequency);
         }
     }
+
+
 }
 
 

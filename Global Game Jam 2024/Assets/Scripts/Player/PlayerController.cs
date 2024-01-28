@@ -32,25 +32,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string m_InteractSound;
 
     private float dashBufferCounter;
-    private bool isDashing;
+    public bool isDashing { get; private set; }
     private bool hasDashed;
     private bool canDash => dashBufferCounter < 0f && !isDashing;
 
     [Header("Player Status")]
     [HideInInspector] public bool IsCarrying;
 
-    public static PlayerController Instance { get; private set; }
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
+ 
     // Start is called before the first frame update
     void Start()
     {

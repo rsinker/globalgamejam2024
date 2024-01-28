@@ -67,7 +67,6 @@ public class AudioManager : MonoBehaviour
     {
         foreach (Sound sound in sounds)
         {
-            Debug.Log(sound.m_Volume);
             if(sound.name == soundName) return sound.m_Source;
         }
         Debug.LogError("Sound Name Not Found!");
