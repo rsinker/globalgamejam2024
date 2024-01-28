@@ -8,6 +8,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int m_MaxHealth = 6;
     [SerializeField] private int m_CurrentHealth = 6;
     [SerializeField] private int m_Rats = 0;
+    public bool _isDead => m_CurrentHealth <= 0;
+    //[SerializeField] bool isDead = false; //mystuff
 
     [Header("References")]
     private GameManager m_GameManager;
@@ -15,7 +17,8 @@ public class PlayerStats : MonoBehaviour
     private PlayerController m_PlayerController;
     private DamageFlash m_PlayerDamageFlash;
     private PlayerManager m_PlayerManager;
-    
+    [SerializeField] Animator m_Animator; //my stuff
+
     [Header("Sound Effects")]
     [SerializeField] private string s_playerHurt;
     [SerializeField] private string s_playerDeath;
@@ -31,16 +34,25 @@ public class PlayerStats : MonoBehaviour
     }
     public void RecieveDamage(float damage)
     {
+        //my stuff
+        m_Animator.SetBool("isDead", _isDead); //my stuff
+
         if (m_PlayerController.isDashing) return;
         m_CurrentHealth -= (int)damage;
         if (m_CurrentHealth < 0)
         {
+            m_PlayerController.enabled = false;
+            //play death animation
+            //isDead = true; //my stuff
             m_AudioManager.PlaySoundOnce(s_playerDeath);
         }
         else
         {
+            //play hit animation
+            m_Animator.SetTrigger("gotHit"); //my stuff
             m_AudioManager.PlaySoundOnce(s_playerHurt);
             m_PlayerDamageFlash.CallDamageFlash();
+           
         }
     }
 
@@ -51,6 +63,14 @@ public class PlayerStats : MonoBehaviour
 
         }
     }
+
+    public void Update() //my stuff
+    { 
+        if (Input.GetKeyDown(KeyCode.T)) //my stuff
+        { //my stuff
+            RecieveDamage(6); //my stuff
+        } //my stuff
+    } 
 
 }
 
