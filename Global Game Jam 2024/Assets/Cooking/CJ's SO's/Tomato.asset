@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e030cec9c49e8419a4fa882c8f3195, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: 
-  _iconUncooked: {fileID: 0}
+  _iconUncooked: {fileID: 1124024721, guid: 18d2c3dd9835fcb41a6579d0e15149a9, type: 3}
   _iconCooked: {fileID: 0}
   _foodPrefab: {fileID: 0}
   isCooked: 0
