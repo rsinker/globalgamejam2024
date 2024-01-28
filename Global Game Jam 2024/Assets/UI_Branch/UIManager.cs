@@ -37,7 +37,6 @@ public class UIManager : MonoBehaviour
             SceneManager.LoadScene(m_MainScene);
         }
 
-
     }
 
     public void playCutscene () {
