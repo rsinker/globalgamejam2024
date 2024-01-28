@@ -16,18 +16,23 @@ public class GameManager1 : MonoBehaviour
     public int playerCurrentHealth;
 
     public static GameManager1 Instance;
+
+
+
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
 
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this);
         }
-        else
+        else if (Instance != this)
         {
             Destroy(this.gameObject);
         }
+
     }
 }
 

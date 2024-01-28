@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/Start Menu.unity
+    path: Assets/UI_Branch/Start Menu.unity
     guid: 606c4aafe22bf564d8e89c9c836530f6
   - enabled: 1
-    path: Assets/Scenes/Aivy's Scene.unity
+    path: Assets/UI_Branch/Aivy's Scene.unity
     guid: ffa47731c2952994db943f39fc1fc321
   - enabled: 1
     path: Assets/Scenes/William's Scene.unity

@@ -5,20 +5,22 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class UI_Main : MonoBehaviour
+public class UIManager_Main : MonoBehaviour
 {
-    [SerializeField] GameObject pauseMenu;
     [SerializeField] private string sceneName;
+    [SerializeField] private GameObject pauseMenu;
 
-    public GameManager1 GM;
+    private GameManager1 GM;
 
-    void Awake() {
+
+    void Start() {
         GM = GameManager1.Instance;
     }
 
     //Access Health
     //GM.playerMaxHealth
 
+    //Pause Menu
     public void Pause() {
 
         Time.timeScale = 0f;
@@ -42,33 +44,35 @@ public class UI_Main : MonoBehaviour
 
     //hearts UI
     public Image[] Hearts;
-    public Sprite fullHeartL;
-    public Sprite fullHeartR;
-    public Sprite emptyHeartL;
-    public Sprite emptyHeartR;
-
+    public Sprite fullHeart, halfHeart, emptyHeart;
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape)) {
             Pause();
         }
+
         //empty heart sprites vs full heart sprites
         for (int i = 0; i < Hearts.Length; i++)
         {
             if (i < GM.playerCurrentHealth) {
-                if (i % 2 > 0) {
-                    Hearts[i].sprite = fullHeartR;
-                } else {
-                    Hearts[i].sprite = fullHeartL;
+
+                if ((i+1) % 2 == 0) {
+
+                    Hearts[i].sprite = fullHeart;
+
+                }  else {
+
+                    Hearts[i].sprite = halfHeart;
+
                 }
+
             } else {
-                if (i % 2 > 0) {
-                    Hearts[i].sprite = emptyHeartR;
-                } else {
-                    Hearts[i].sprite = emptyHeartL;
-                }
+                
+                Hearts[i].sprite = emptyHeart;
+
             }
+
             if (i < GM.playerMaxHealth)
             {
                 Hearts[i].enabled = true;
