@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Variables")]
     [SerializeField] private float movementAcceleration;
-    [SerializeField] private float maxMoveSpeed;
+    [SerializeField] public float maxMoveSpeed;
     [SerializeField] private float linearDrag;
 
     [Header("Dash Parameters")]
