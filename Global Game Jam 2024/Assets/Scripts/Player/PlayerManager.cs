@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
-    public static AudioManager Instance { get; private set; }
+    public PlayerController _playerController;
+    public PlayerStats _playerStats;
+    public DamageFlash _playerDamageFlash;
+    public static PlayerManager Instance { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -16,6 +18,5 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
         }
-        DontDestroyOnLoad(this.gameObject);
     }
 }

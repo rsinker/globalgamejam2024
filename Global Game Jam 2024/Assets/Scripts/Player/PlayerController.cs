@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Managers")]
+    private AudioManager m_AudioManager;
+
     [Header("Components")]
     private Rigidbody2D rb;
     private Animator anim;
+    [SerializeField] private Transform m_Weapon;
 
     [Header("Layer Masks")]
     [SerializeField] private LayerMask wallLayer;
@@ -21,22 +27,31 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float dashLength = 0.3f;
     [SerializeField] private float dashBufferLength = 0.1f;
+
+    [Header("Sound Effects")]
+    [SerializeField] private string m_InteractSound;
+
     private float dashBufferCounter;
-    private bool isDashing;
+    public bool isDashing { get; private set; }
     private bool hasDashed;
     private bool canDash => dashBufferCounter < 0f && !isDashing;
 
     [Header("Player Status")]
     [HideInInspector] public bool IsCarrying;
+
+ 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        m_AudioManager = AudioManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
+        WeaponFollowCursor();
+        UpdateAudio();
         if (Input.GetButtonDown("Dash") && canDash) {
             dashBufferCounter = dashBufferLength;
             StartCoroutine(Dash(GetInput()));
@@ -49,6 +64,24 @@ public class PlayerController : MonoBehaviour
         if (!isDashing) {
             MoveCharacter();
             ApplyLinearDrag();
+        }
+    }
+
+    void WeaponFollowCursor()
+    {
+        Vector2 mouse_pos = Input.mousePosition;
+        Vector2 objectPos = Camera.main.WorldToScreenPoint(transform.position);
+        mouse_pos.x -= objectPos.x;
+        mouse_pos.y -= objectPos.y;
+        float angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg;
+        m_Weapon.rotation = Quaternion.Euler(new Vector3(0, 0, angle+90));
+    }
+
+    void UpdateAudio()
+    {
+        if (Input.GetButtonDown("Interact"))
+        {
+            m_AudioManager.PlaySoundOnce(m_InteractSound);
         }
     }
 
