@@ -51,6 +51,5 @@ public class Door : Item
 
 
 //Enemy generation
-//Fix doors not going away
-//Fix non-contiguous
+//Fix non-contiguous: Maybe?
 //Fix UI
