@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &434497289846356749
+--- !u!1 &3741638075261289466
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,73 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 90194767732857199}
+  - component: {fileID: 8657272841808355750}
+  - component: {fileID: 6874599852566130017}
+  - component: {fileID: 6317680579102433473}
+  - component: {fileID: 5019875864316297329}
+  - component: {fileID: 4464549541443368368}
+  - component: {fileID: 5699180421270629694}
   m_Layer: 0
-  m_Name: Projectile Spawn Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &90194767732857199
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 434497289846356749}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1390312783830111781}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2945618355190489870
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1390312783830111781}
-  - component: {fileID: 8767670681496026528}
-  - component: {fileID: 6214589232401285863}
-  - component: {fileID: 1707947751817766469}
-  - component: {fileID: 4729928053993643624}
-  - component: {fileID: 3928203485386286234}
-  m_Layer: 0
-  m_Name: Chicken
+  m_Name: Egg2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1390312783830111781
+--- !u!4 &8657272841808355750
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2945618355190489870}
+  m_GameObject: {fileID: 3741638075261289466}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.83, y: 2.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 90194767732857199}
+  - {fileID: 2028464734573353162}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8767670681496026528
+--- !u!212 &6874599852566130017
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2945618355190489870}
+  m_GameObject: {fileID: 3741638075261289466}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -109,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 450865263, guid: 39a7ba449b4f64746abd1cca48b32f24, type: 3}
+  m_Sprite: {fileID: -1335477376, guid: e6f351cef5d347d48aed1811fce9ab88, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -120,29 +89,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6214589232401285863
+--- !u!114 &6317680579102433473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2945618355190489870}
+  m_GameObject: {fileID: 3741638075261289466}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 934a909c7d329d34f90fe6f21f0d865a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  damage: 5
+  maxHealth: 10
+  damage: 2
   speed: 0.08
   m_deathAnimationDelay: 0.5
   m_shrinkFactor: 0.25
   m_shrinkLength: 0.1
   m_Ingredients:
-  - {fileID: 11400000, guid: 722e95e129cfcc74bb50b7c5207b71b6, type: 2}
   - {fileID: 11400000, guid: a776f1a52dd33f442ac6f3fdaa46454d, type: 2}
-  stage: 2
-  m_DamageFlash: {fileID: 1707947751817766469}
+  stage: 1
+  m_DamageFlash: {fileID: 5019875864316297329}
   m_hurt: Scream
   m_death: Scream
   m_moving: Scream
@@ -150,17 +118,17 @@ MonoBehaviour:
   m_AttackCooldown: 3
   m_AttackLength: 1
   m_AttackFrequency: 0.1
-  _Projectile: {fileID: 4389681786302566722, guid: 4c98b396738dffd41af3f19b1a460517, type: 3}
-  _SpawnPoint: {fileID: 90194767732857199}
-  m_ProjectileSpeed: 5
+  _Projectile: {fileID: 6022060807335553460, guid: 92f719b31a75b9146b38280eb5752fed, type: 3}
+  _SpawnPoint: {fileID: 2028464734573353162}
+  m_ProjectileSpeed: 2.5
   m_BulletFollow: 0.411
---- !u!114 &1707947751817766469
+--- !u!114 &5019875864316297329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2945618355190489870}
+  m_GameObject: {fileID: 3741638075261289466}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa56934a28d7c5342a3f9c78b87dc20e, type: 3}
@@ -170,13 +138,13 @@ MonoBehaviour:
   _flashTime: 0.25
   _spriteRenderers: []
   _materials: []
---- !u!61 &4729928053993643624
+--- !u!61 &4464549541443368368
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2945618355190489870}
+  m_GameObject: {fileID: 3741638075261289466}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -215,17 +183,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!95 &3928203485386286234
+--- !u!95 &5699180421270629694
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2945618355190489870}
+  m_GameObject: {fileID: 3741638075261289466}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 21340fa33b922cc408c4adf5ac264bc7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 28e0a82b8a56a5e4487f68fc30574c74, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -236,3 +204,34 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &6877520494324695768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2028464734573353162}
+  m_Layer: 0
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2028464734573353162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6877520494324695768}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8657272841808355750}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

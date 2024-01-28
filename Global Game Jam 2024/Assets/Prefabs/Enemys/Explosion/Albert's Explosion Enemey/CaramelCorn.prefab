@@ -172,8 +172,10 @@ MonoBehaviour:
   m_deathAnimationDelay: 0.5
   m_shrinkFactor: 0.25
   m_shrinkLength: 0.1
-  m_Ingredients: []
-  stage: 1
+  m_Ingredients:
+  - {fileID: 11400000, guid: 5304f22bdb13bb448866abdbc4620623, type: 2}
+  - {fileID: 11400000, guid: 6cd84d3404ea05e44a39cdb095e09df7, type: 2}
+  stage: 2
   m_DamageFlash: {fileID: 0}
   m_hurt: 
   m_death: 

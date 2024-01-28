@@ -152,10 +152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e648816ddb0cef4c9533e8388f311c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  damage: 1
-  speed: 0.007
+  maxHealth: 30
+  damage: 20
+  speed: 0.0089
   m_deathAnimationDelay: 0.5
+  m_shrinkFactor: 0.25
+  m_shrinkLength: 0.1
+  m_Ingredients:
+  - {fileID: 11400000, guid: 277a80bf2e57e4745a2d68957e100370, type: 2}
+  - {fileID: 11400000, guid: e95adc10a34fe274581fd961bc04ab66, type: 2}
+  stage: 2
   m_DamageFlash: {fileID: 0}
   m_hurt: Scream
   m_death: Scream
