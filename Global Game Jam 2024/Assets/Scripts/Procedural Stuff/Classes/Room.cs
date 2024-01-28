@@ -23,6 +23,11 @@ public class Room
     [HideInInspector] public Vector2Int leftDoorPos;
     [HideInInspector] public Vector2Int rightDoorPos;
 
+    [HideInInspector] public bool isShop;
+    [HideInInspector] public bool isBoss;
+    [HideInInspector] public bool isHub;
+
+
     public Room(int collumns, int rows)
     {
         roomData = new string[collumns,rows];
@@ -40,6 +45,31 @@ public class Room
         right = 0;
         left = 100;
         bottom = 100;
+
+        if (collumns == ProceduralConstants.FAKE_SHOP_SIZE && rows == ProceduralConstants.FAKE_SHOP_SIZE)
+        {
+            isShop = true;
+
+            topDoorPos = new Vector2Int(24,24);
+            leftDoorPos = new Vector2Int(12,21);
+            bottomDoorPos = new Vector2Int(20, 18);
+            rightDoorPos = new Vector2Int(28, 21);
+        }
+        else if (collumns == ProceduralConstants.FAKE_BOSS_SIZE && rows == ProceduralConstants.FAKE_BOSS_SIZE)
+        {
+            isBoss = true;
+
+            topDoorPos = new Vector2Int(24, 24);
+            leftDoorPos = new Vector2Int(12, 21);
+            bottomDoorPos = new Vector2Int(20, 18);
+            rightDoorPos = new Vector2Int(28, 21);
+        }
+        else if (collumns == ProceduralConstants.FAKE_HUB_SIZE && rows == ProceduralConstants.FAKE_HUB_SIZE)
+        {
+            isHub = true;
+
+            topDoorPos = new Vector2Int(20, 24);
+        }
     }
 
     public void SetTile(int x, int y, string tileName)
@@ -179,6 +209,52 @@ public class Room
 
         //SetTile(rightCenter.x, rightCenter.y, "rightDoor");
         //SetTile(bottomCenter.x, bottomCenter.y, "bottomDoor");
+    }
+
+    public void GenerateCookware()
+    {
+        Vector2Int blenderLoc = new Vector2Int(Random.Range(left, right), Random.Range(bottom, top));
+        
+        if (GetTile(blenderLoc.x, blenderLoc.y) != "floor")
+        {
+            blenderLoc = GetValidPosition(blenderLoc);
+        }
+
+        roomData[blenderLoc.x, blenderLoc.y] = "blender";
+
+
+
+        Vector2Int ovenLoc = new Vector2Int(Random.Range(left, right), Random.Range(bottom, top));
+
+        if (GetTile(ovenLoc.x, ovenLoc.y) != "floor")
+        {
+            ovenLoc = GetValidPosition(ovenLoc);
+        }
+
+        roomData[ovenLoc.x, ovenLoc.y] = "oven";
+
+
+
+        Vector2Int fryerLoc = new Vector2Int(Random.Range(left, right), Random.Range(bottom, top));
+
+        if (GetTile(fryerLoc.x, fryerLoc.y) != "floor")
+        {
+            fryerLoc = GetValidPosition(fryerLoc);
+        }
+
+        roomData[fryerLoc.x, fryerLoc.y] = "fryer";
+
+
+
+        Vector2Int plateLoc = new Vector2Int(Random.Range(left, right), Random.Range(bottom, top));
+
+        if (GetTile(plateLoc.x, plateLoc.y) != "floor")
+        {
+            plateLoc = GetValidPosition(plateLoc);
+        }
+
+        roomData[plateLoc.x, plateLoc.y] = "plate";
+
     }
 
     public Vector2Int GetValidPosition(Vector2Int pos)
