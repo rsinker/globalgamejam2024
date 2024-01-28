@@ -8,10 +8,10 @@ public class Room
 {
     string[,] roomData;
 
-    int top;
-    int right;
-    int left;
-    int bottom;
+    [HideInInspector] public int top;
+    [HideInInspector] public int right;
+    [HideInInspector] public int left;
+    [HideInInspector] public int bottom;
 
     Vector2Int topCenter;
     Vector2Int rightCenter;

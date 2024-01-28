@@ -13,6 +13,7 @@ abstract public class Enemy : MonoBehaviour
     [SerializeField] private float m_shrinkFactor = .25f;
     [SerializeField] protected float m_shrinkLength = .1f;
     [SerializeField] private Ingredient[] m_Ingredients;
+    [SerializeField] public int stage = 1; // 1 2 3
 
     private Vector3 origScale;
     private bool isInRange = false;

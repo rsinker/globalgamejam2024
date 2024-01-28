@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class Door : MonoBehaviour
+public class Door : Item
 {
     private static BoardManager boardManager;
     string destinationScene = "new room";
@@ -26,14 +26,22 @@ public class Door : MonoBehaviour
 
 
     // Start is called before the first frame update
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             if (destinationScene == "new room")
             {
-                boardManager.MoveToNewRoom(doorDirection);
+                
             }
+        }
+    }*/
+
+    protected override void Interact()
+    {
+        if ((doorDirection == Direction.up && GameManager.topDoorLocked == false) || (doorDirection == Direction.down && GameManager.bottomDoorLocked == false) || (doorDirection == Direction.left && GameManager.leftDoorLocked == false) || (doorDirection == Direction.right && GameManager.bottomDoorLocked == false))
+        {
+            boardManager.MoveToNewRoom(doorDirection);
         }
     }
 }
