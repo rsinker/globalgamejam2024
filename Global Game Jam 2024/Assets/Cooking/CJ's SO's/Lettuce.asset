@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e030cec9c49e8419a4fa882c8f3195, type: 3}
   m_Name: Lettuce
   m_EditorClassIdentifier: 
-  _iconUncooked: {fileID: 0}
+  _iconUncooked: {fileID: -1383576601, guid: 654fa3a410c8e6f4f89208842e9fa96f, type: 3}
   _iconCooked: {fileID: 0}
   _foodPrefab: {fileID: 0}
   isCooked: 0
