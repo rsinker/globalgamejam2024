@@ -10,6 +10,7 @@ abstract public class Enemy : MonoBehaviour
     [SerializeField] private float damage = 1f;
     [SerializeField] protected float speed = 0.01f;
     [SerializeField] protected float m_deathAnimationDelay = 0.5f;
+    [SerializeField] public int stage = 1; // 1 2 3
 
     private bool isInRange = false;
     private float currentHealth;
