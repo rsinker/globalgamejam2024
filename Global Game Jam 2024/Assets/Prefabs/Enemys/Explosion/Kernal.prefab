@@ -254,8 +254,7 @@ MonoBehaviour:
   m_shrinkFactor: 0.25
   m_shrinkLength: 0.1
   m_Ingredients:
-  - {fileID: 11400000, guid: a776f1a52dd33f442ac6f3fdaa46454d, type: 2}
-
+  - {fileID: 11400000, guid: 5304f22bdb13bb448866abdbc4620623, type: 2}
   stage: 1
   m_DamageFlash: {fileID: 0}
   m_hurt: EnemyHitSfx

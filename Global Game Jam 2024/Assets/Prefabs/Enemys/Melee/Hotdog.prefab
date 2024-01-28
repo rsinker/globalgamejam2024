@@ -158,19 +158,17 @@ MonoBehaviour:
   m_deathAnimationDelay: 0.5
   m_shrinkFactor: 0.25
   m_shrinkLength: 0.1
-
   m_Ingredients:
-  - {fileID: 11400000, guid: 277a80bf2e57e4745a2d68957e100370, type: 2}
   - {fileID: 11400000, guid: e95adc10a34fe274581fd961bc04ab66, type: 2}
-  stage: 2
-
+  - {fileID: 11400000, guid: 277a80bf2e57e4745a2d68957e100370, type: 2}
+  stage: 1
   m_DamageFlash: {fileID: 0}
-  m_hurt: EnemyHitSfx
-  m_death: DeathSoundEnemies
-  m_moving: HotdogScooching
-  m_attack: HotdogFlameSounds
+  m_hurt: 
+  m_death: 
+  m_moving: 
+  m_attack: 
   m_attackDuration: 1
-  m_scaleIncrease: 0.25
+  m_scaleIncrease: 0.1
 --- !u!61 &7608337440014274297
 BoxCollider2D:
   m_ObjectHideFlags: 0

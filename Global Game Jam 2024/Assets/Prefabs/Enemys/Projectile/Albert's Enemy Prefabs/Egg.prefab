@@ -159,10 +159,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a776f1a52dd33f442ac6f3fdaa46454d, type: 2}
   stage: 1
   m_DamageFlash: {fileID: 760110833291722701}
-  m_hurt: Scream
-  m_death: Scream
-  m_moving: Scream
-  m_attack: Scream
+  m_hurt: EnemyHitSfx
+  m_death: DeathSoundEnemies
+  m_moving: EggScooching
+  m_attack: ShootForEgg
   m_AttackCooldown: 3
   m_AttackLength: 0.1
   m_AttackFrequency: 0.1
