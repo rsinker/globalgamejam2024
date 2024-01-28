@@ -296,6 +296,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_resourceType: 1
-  m_value: 3
+  m_value: 5
   m_playerStats: {fileID: 0}
   m_pickupSound: 
