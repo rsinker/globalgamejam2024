@@ -19,7 +19,7 @@ abstract public class Item : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Interact")) {
+        if (Input.GetButtonDown("Interact") && isInteractable) {
             Interact();
         }
     }

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour 
 {
     [Header("Appearance")]
-    [SerializeField] private Sprite m_Sprite;
-    [SerializeField] private Sound m_SoundFX;
+    [SerializeField] private float m_shrinkFactor = .2f;
+    private Vector3 origScale;
 
     [Header("Weapon Stats")]
     [SerializeField] private BoxCollider2D m_Collider;
@@ -15,13 +15,21 @@ public class Weapon : MonoBehaviour
 
     [Header("Sound Effects")]
     [SerializeField] private string s_Attack;
-    
+
+    private void Start()
+    {
+        origScale = transform.localScale;
+    }
 
     void Update()
     {
         if (Input.GetButtonDown("Attack"))
         {
-            //TODO: Implement Swing Animation
+            transform.localScale *= (1 - m_shrinkFactor);
+        }
+        if (Input.GetButtonUp("Attack"))
+        {
+            transform.localScale = origScale;
         }
     }
 

@@ -10,13 +10,17 @@ abstract public class Enemy : MonoBehaviour
     [SerializeField] private float damage = 1f;
     [SerializeField] protected float speed = 0.01f;
     [SerializeField] protected float m_deathAnimationDelay = 0.5f;
+    [SerializeField] private float m_shrinkFactor = .25f;
+    [SerializeField] protected float m_shrinkLength = .1f;
+    [SerializeField] private Ingredient[] m_Ingredients;
     [SerializeField] public int stage = 1; // 1 2 3
 
+    private Vector3 origScale;
     private bool isInRange = false;
     private float currentHealth;
     private float playerWeaponDamage;
     
-    protected bool m_isDead => currentHealth < 0;
+    protected bool isDead => currentHealth < 0;
 
     protected Animator m_Animator;
 
@@ -47,6 +51,7 @@ abstract public class Enemy : MonoBehaviour
         currentHealth = maxHealth;
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_Animator = GetComponent<Animator>();
+        origScale = transform.localScale;
     }
 
     protected virtual void Update()
@@ -55,7 +60,23 @@ abstract public class Enemy : MonoBehaviour
         if (Input.GetButtonDown("Attack") && isInRange)
         {
             TakeDamage(playerWeaponDamage);
+            StartCoroutine(TakeDamageAnimation());
         }
+    }
+
+    void DropIngredients()
+    {
+        foreach(Ingredient ingredient in m_Ingredients)
+        {
+            Instantiate(ingredient._foodPrefab, transform.position, Quaternion.identity);
+        }
+    }
+
+    IEnumerator TakeDamageAnimation()
+    {
+        transform.localScale *= (1 - m_shrinkFactor);
+        yield return new WaitForSeconds(m_shrinkLength);
+        transform.localScale = origScale;
     }
 
     protected void FollowPlayer()
@@ -72,6 +93,7 @@ abstract public class Enemy : MonoBehaviour
         if(currentHealth < 0)
         {
             m_Animator.SetBool("isDead", true);
+            DropIngredients();
             //TODO: Animate death, set destroy to delete gameobject after animation finished.
             //my_Anim.SetBool("isExploded", true);
             StopAllCoroutines();
