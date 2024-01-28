@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -26,6 +27,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float dashLength = 0.3f;
     [SerializeField] private float dashBufferLength = 0.1f;
+
+    [Header("Sound Effects")]
+    [SerializeField] private string m_InteractSound;
+
     private float dashBufferCounter;
     private bool isDashing;
     private bool hasDashed;
@@ -33,6 +38,19 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Status")]
     [HideInInspector] public bool IsCarrying;
+
+    public static PlayerController Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -74,7 +92,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact"))
         {
-            m_AudioManager.PlaySoundOnce("Scream");
+            m_AudioManager.PlaySoundOnce(m_InteractSound);
         }
     }
 

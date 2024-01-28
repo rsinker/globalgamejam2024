@@ -12,6 +12,9 @@ public class Weapon : MonoBehaviour
     [SerializeField] private BoxCollider2D m_Collider;
     [SerializeField] private float m_baseDamage = 1f;
     [SerializeField] private float m_attackSpeed = .3f;
+
+    [Header("Sound Effects")]
+    [SerializeField] private string s_Attack;
     
 
     void Update()
@@ -24,15 +27,15 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.transform.CompareTag("Enemy"))
-        {
-            Debug.Log("In Range");
-            DealDamage(collision.transform.GetComponent<Enemy>());
-        }
     }
 
     private void DealDamage(Enemy enemy)
     {
         
+    }
+
+    public float GetDamage()
+    {
+        return m_baseDamage;
     }
 }
