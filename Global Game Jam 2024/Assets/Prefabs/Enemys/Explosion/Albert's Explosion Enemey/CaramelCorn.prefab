@@ -175,10 +175,10 @@ MonoBehaviour:
   m_Ingredients: []
   stage: 1
   m_DamageFlash: {fileID: 0}
-  m_hurt: 
-  m_death: 
-  m_moving: 
-  m_attack: 
+  m_hurt: EnemyHitSfx
+  m_death: DeathSoundEnemies
+  m_moving: PopcornSpawnScooch
+  m_attack: PopcornFamilyExplosion
   _Explosion: {fileID: 795020755903969698}
   m_explosionDelay: 0.8
   m_explosionAnimationDelay: 1

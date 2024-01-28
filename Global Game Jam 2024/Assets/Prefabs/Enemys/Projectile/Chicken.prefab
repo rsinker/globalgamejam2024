@@ -141,10 +141,10 @@ MonoBehaviour:
   m_Ingredients: []
   stage: 2
   m_DamageFlash: {fileID: 1707947751817766469}
-  m_hurt: Scream
-  m_death: Scream
-  m_moving: Scream
-  m_attack: Scream
+  m_hurt: EnemyHitSfx
+  m_death: DeathSoundEnemies
+  m_moving: ChickenWalking
+  m_attack: ShootForChicken
   m_AttackCooldown: 3
   m_AttackLength: 1
   m_AttackFrequency: 0.1

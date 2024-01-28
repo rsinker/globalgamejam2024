@@ -154,7 +154,7 @@ MonoBehaviour:
   m_resourceType: 1
   m_value: 1
   m_playerStats: {fileID: 0}
-  m_pickupSound: 
+  m_pickupSound: Pickup
 --- !u!1 &8107534013191210115
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +225,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.0729165, y: 2.2239583}
+    oldSize: {x: 9.109375, y: 3.3359375}
     newSize: {x: 0.96, y: 0.47}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
