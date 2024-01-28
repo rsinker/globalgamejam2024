@@ -6,18 +6,19 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
-    public static AudioManager Instance { get; private set; }
+    public static AudioManager Instance;
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
+        DontDestroyOnLoad(this);
+
+        if (Instance == null)
         {
             Instance = this;
         }
-        DontDestroyOnLoad(this.gameObject);
+        else
+        {
+            Destroy(this.gameObject);
+        }
 
         foreach (var sound in sounds)
         {

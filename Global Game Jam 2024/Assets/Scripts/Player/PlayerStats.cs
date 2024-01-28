@@ -18,6 +18,7 @@ public class PlayerStats : MonoBehaviour
     private DamageFlash m_PlayerDamageFlash;
     private PlayerManager m_PlayerManager;
     [SerializeField] Animator m_Animator; 
+    private UIManager_Main m_UIManager;
 
     [Header("Sound Effects")]
     [SerializeField] private string s_playerHurt;
@@ -28,9 +29,12 @@ public class PlayerStats : MonoBehaviour
         m_GameManager = GameManager.Instance;
         m_AudioManager = AudioManager.Instance;
         m_PlayerManager = PlayerManager.Instance;
+        m_UIManager = Object.FindObjectOfType<UIManager_Main>();
 
         m_PlayerController = m_PlayerManager._playerController;
         m_PlayerDamageFlash = m_PlayerManager._playerDamageFlash;
+
+        m_UIManager.UpdateHearts(m_CurrentHealth, m_MaxHealth);
     }
     public void RecieveDamage(float damage)
     {
@@ -50,6 +54,8 @@ public class PlayerStats : MonoBehaviour
             m_PlayerDamageFlash.CallDamageFlash();
            
         }
+        Debug.Log(m_CurrentHealth + " vs " + m_MaxHealth);
+        m_UIManager.UpdateHearts(m_CurrentHealth, m_MaxHealth);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
