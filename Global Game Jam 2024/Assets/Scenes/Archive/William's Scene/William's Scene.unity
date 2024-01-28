@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d1046b0639dc4846b7aa3a42bbd7116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ingredient: {fileID: 0}
   shrinkScale: 1
 --- !u!114 &905588202
 MonoBehaviour:
@@ -302,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d1046b0639dc4846b7aa3a42bbd7116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ingredient: {fileID: 0}
   shrinkScale: 1
 --- !u!114 &970456810
 MonoBehaviour:
@@ -315,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d1046b0639dc4846b7aa3a42bbd7116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ingredient: {fileID: 0}
   shrinkScale: 1
 --- !u!1 &1034041695
 GameObject:
@@ -5066,8 +5069,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2617824357039304646, guid: 8cb4e7e6497fdbc4c9573971e81e9c1d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2016496611}
   m_SourcePrefab: {fileID: 100100000, guid: 8cb4e7e6497fdbc4c9573971e81e9c1d, type: 3}
+--- !u!1 &2016496610 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2617824357039304646, guid: 8cb4e7e6497fdbc4c9573971e81e9c1d, type: 3}
+  m_PrefabInstance: {fileID: 2016496609}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2016496611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016496610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2357e1f6074978945ad4c8a24ea63d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cookingType: 2
+  _cookingTime: 5
 --- !u!1 &2088017372
 GameObject:
   m_ObjectHideFlags: 0
@@ -5851,6 +5876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d1046b0639dc4846b7aa3a42bbd7116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ingredient: {fileID: 0}
   shrinkScale: 1
 --- !u!212 &4480625182066629084
 SpriteRenderer:

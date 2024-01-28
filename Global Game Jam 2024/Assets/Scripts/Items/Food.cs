@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Food : Item
 {
-    [SerializeField] private Ingredient _ingredient;
+    [SerializeField] public Ingredient _ingredient;
     private bool isPickedUp;
     private Vector2 originalScale;
     [SerializeField] private float shrinkScale;
+    private CookingManager _cookingManager;
     protected override void Start(){
         base.Start();
+        _cookingManager = CookingManager.Instance;
         originalScale = transform.localScale;
         isPickedUp = false;
     } 
@@ -26,7 +28,9 @@ public class Food : Item
     {
         //Make sure player can only pick up one Item at a time
         if (player.IsCarrying) return;
+
         //Pick up food
+        _cookingManager._carriedItem = this;
         isPickedUp = true;
         player.IsCarrying = true;
         transform.SetParent(player.transform, false);

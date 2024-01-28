@@ -7,13 +7,14 @@ public enum ResourceType
     maxHealth,
     regenHealth,
     damage,
+    movementSpeed,
     rats
 }
 public class Resource : Item
 {
     [SerializeField] private ResourceType m_resourceType;
     [SerializeField] private float m_value;
-    [SerializeField] private PlayerStats m_playerStats;
+    private PlayerStats m_playerStats;
     [SerializeField] private string m_pickupSound;
 
     protected override void Start()
