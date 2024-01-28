@@ -32,11 +32,8 @@ public class ProjectileEnemy : Enemy
     protected override void Update()
     {
         base.Update();
-        //Test code
-        //if (Input.GetButtonDown("Attack"))
-        //{
+        //Use this when you want to shoot.
             //StartCoroutine(Shoot());
-        //}
     }
 
     private IEnumerator Shoot()
