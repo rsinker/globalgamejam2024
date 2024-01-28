@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Food : Item
 {
+    [SerializeField] private Ingredient _ingredient;
     private bool isPickedUp;
     private Vector2 originalScale;
     [SerializeField] private float shrinkScale;
@@ -14,7 +15,7 @@ public class Food : Item
     } 
     override protected void Interact()
     {
-        if (!isPickedUp && isInteractable) {
+        if (!isPickedUp) {
             PickUp();
         } else {
             Drop();

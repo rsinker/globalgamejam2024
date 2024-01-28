@@ -136,6 +136,10 @@ MonoBehaviour:
   damage: 5
   speed: 0.08
   m_deathAnimationDelay: 0.5
+  m_shrinkFactor: 0.25
+  m_shrinkLength: 0.1
+  m_Ingredients: []
+  stage: 2
   m_DamageFlash: {fileID: 1707947751817766469}
   m_hurt: Scream
   m_death: Scream

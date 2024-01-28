@@ -23,4 +23,6 @@ public class ProceduralConstants
 public class GameConstants
 {
     public const float PLAYER_SPAWN_OFFSET = 2.5f;
+
+    public const float SPAWN_DELAY = 2.0f;
 }

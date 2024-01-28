@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [Header("Player Stats")]
-    [SerializeField] private int m_MaxHealth = 6;
-    [SerializeField] private int m_CurrentHealth = 6;
-    [SerializeField] private int m_Rats = 0;
+    [SerializeField] public int m_MaxHealth = 6;
+    [SerializeField] public int m_CurrentHealth = 6;
+    [SerializeField] public int m_Rats = 0;
+    [SerializeField] public float m_DamageModifier = 1f;
     public bool _isDead => m_CurrentHealth <= 0;
     //[SerializeField] bool isDead = false; //mystuff
 

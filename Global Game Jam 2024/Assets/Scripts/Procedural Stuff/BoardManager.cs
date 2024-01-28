@@ -39,7 +39,7 @@ public class BoardManager : MonoBehaviour
     //[SerializeField] float perlinResolution;
 
     //Change to enum
-    Room currentRoom;
+    [HideInInspector] public Room currentRoom;
     Room[,] gameMap = new Room[ProceduralConstants.MAX_MAP_HORIZ, ProceduralConstants.MAX_MAP_VERT];
     public static Vector2Int mapCoordinates = new Vector2Int(ProceduralConstants.MAX_MAP_HORIZ / 2, -1);
 
@@ -62,8 +62,9 @@ public class BoardManager : MonoBehaviour
     public GameObject rightDoor;
     public GameObject bottomDoor;
 
-    public Tilemap tilemap;
-    
+    public Tilemap floorMap;
+    public Tilemap wallMap;
+
 
     private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
@@ -92,6 +93,9 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private GameObject oven;
     [SerializeField] private GameObject fryer;
     [SerializeField] private GameObject plate;
+
+    [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private recipeManager recipeGenerator;
 
     void InitializeList()
     {
@@ -144,6 +148,7 @@ public class BoardManager : MonoBehaviour
     void BoardSetup()
     {
         boardHolder = new GameObject("BoardParentObj").transform;
+        recipeGenerator.PickNewRecipe();
         if (gameMap[mapCoordinates.x, mapCoordinates.y] == null)
         {
             bool spawningShop = CheckIfShop();
@@ -165,6 +170,8 @@ public class BoardManager : MonoBehaviour
                 roomCountBoss++;
 
                 GameManager.state = GameState.InCombatArea;
+
+                InvokeRepeating("BeginSpawn", 0.0f, GameConstants.SPAWN_DELAY);
             }
             else
             {
@@ -211,66 +218,66 @@ public class BoardManager : MonoBehaviour
 
                 if (currentRoom.GetTile(x, y) == "floor")
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
                     //toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
                 }
                 else if (currentRoom.GetTile(x, y) == "obstacle")
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), wallTiles[Random.Range(0, wallTiles.Length)]);
+                    wallMap.SetTile(new Vector3Int(x, y, 0), wallTiles[Random.Range(0, wallTiles.Length)]);
                     //toInstantiate = wallTiles[Random.Range(0, wallTiles.Length)];
                 }
                 else if (currentRoom.GetTile(x, y) == "upperDoor")
                 {
                     GameObject instance = Instantiate(upperDoor, new Vector3(x+0.5f, y+0.5f, 0), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
-                    tilemap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
-                    //tilemap.SetTile(new Vector3Int(x, y, 0), upperDoor);
+                    floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    //floorMap.SetTile(new Vector3Int(x, y, 0), upperDoor);
                 }
                 else if (currentRoom.GetTile(x, y) == "leftDoor")
                 {
                     GameObject instance = Instantiate(leftDoor, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
-                    tilemap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
                 }
                 else if (currentRoom.GetTile(x, y) == "rightDoor")
                 {
                     GameObject instance = Instantiate(rightDoor, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
-                    tilemap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
                 }
                 else if (currentRoom.GetTile(x, y) == "bottomDoor")
                 {
                     GameObject instance = Instantiate(bottomDoor, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
-                    tilemap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
                 }
                 else if (currentRoom.GetTile(x, y) == "blender")
                 {
                     GameObject instance = Instantiate(blender, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
-                    tilemap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
                 }
                 else if (currentRoom.GetTile(x, y) == "oven")
                 {
                     GameObject instance = Instantiate(oven, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
-                    tilemap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
                 }
                 else if (currentRoom.GetTile(x, y) == "fryer")
                 {
                     GameObject instance = Instantiate(fryer, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
-                    tilemap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
                 }
                 else if (currentRoom.GetTile(x, y) == "plate")
                 {
                     GameObject instance = Instantiate(plate, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
-                    tilemap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
+                    floorMap.SetTile(new Vector3Int(x, y, 0), floorTiles[Random.Range(0, floorTiles.Length)]);
                 }
                 else
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), outerWallTiles[Random.Range(0, outerWallTiles.Length)]);
+                    wallMap.SetTile(new Vector3Int(x, y, 0), outerWallTiles[Random.Range(0, outerWallTiles.Length)]);
                     //toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
                 }
 
@@ -314,7 +321,10 @@ public class BoardManager : MonoBehaviour
     {
         //Debug.Log("Leaving room from: " + direction.ToString());
         Destroy(boardHolder.gameObject);
-        tilemap.ClearAllTiles();
+        floorMap.ClearAllTiles();
+        wallMap.ClearAllTiles();
+
+        enemySpawner.ResetEnemies();
 
         if (direction == Door.Direction.left)
         {
@@ -517,6 +527,11 @@ public class BoardManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    void BeginSpawn()
+    {
+        enemySpawner.SpawnEnemies();
     }
 
 
