@@ -255,12 +255,13 @@ MonoBehaviour:
   m_shrinkLength: 0.1
   m_Ingredients:
   - {fileID: 11400000, guid: a776f1a52dd33f442ac6f3fdaa46454d, type: 2}
+
   stage: 1
   m_DamageFlash: {fileID: 0}
-  m_hurt: 
-  m_death: 
-  m_moving: 
-  m_attack: 
+  m_hurt: EnemyHitSfx
+  m_death: DeathSoundEnemies
+  m_moving: PopcornSpawnScooch
+  m_attack: PopcornFamilyExplosion
   _Explosion: {fileID: 1232105962988541207}
   m_explosionDelay: 0.8
   m_explosionAnimationDelay: 1

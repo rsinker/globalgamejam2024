@@ -355,9 +355,10 @@ MonoBehaviour:
   m_MaxHealth: 100
   m_CurrentHealth: 100
   m_Rats: 0
+  m_DamageModifier: 1
   m_Animator: {fileID: 6589402247207658748}
-  s_playerHurt: Scream
-  s_playerDeath: Scream
+  s_playerHurt: PlayerHurt
+  s_playerDeath: DeathSoundPlayer
 --- !u!114 &1800895451487719562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,8 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307662fdc14eac74eab8b57ab4c49c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 0}
-  m_SoundFX: {fileID: 0}
+  m_shrinkFactor: 0.2
   m_Collider: {fileID: 0}
   m_baseDamage: 1
   m_attackSpeed: 0.3

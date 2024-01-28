@@ -298,4 +298,4 @@ MonoBehaviour:
   m_resourceType: 0
   m_value: 0
   m_playerStats: {fileID: 0}
-  m_pickupSound: 
+  m_pickupSound: Pickup
