@@ -11,18 +11,19 @@ public enum GameState
 }
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    private static GameManager Instance;
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
+        DontDestroyOnLoad(this);
+
+        if (Instance == null)
         {
             Instance = this;
         }
-        DontDestroyOnLoad(this.gameObject);
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
 
