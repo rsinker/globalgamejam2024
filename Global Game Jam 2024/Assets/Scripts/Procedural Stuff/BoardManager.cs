@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -194,7 +195,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void SetupScene(int level)
+    public void SetupScene()
     {
         BoardSetup();
         InitializeList();
@@ -204,17 +205,17 @@ public class BoardManager : MonoBehaviour
         Instantiate(exit, new Vector3(collumns-1, rows-1, 0f), Quaternion.identity);
     }
 
-    [ContextMenu("Paint")]
-    void Paint()
+    public void MoveToNewRoom(Door.Direction direction)
     {
-
+        Debug.Log("Leaving room from: " + direction.ToString());
+        SetupScene();
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        SetupScene(3);
+        SetupScene();
     }
 
     // Update is called once per frame

@@ -117,6 +117,8 @@ public class Room
 
     public void GenerateDoors(int rows, int collumns)
     {
+        Debug.Log("Generating rooms");
+
         Vector2Int validTop = topCenter;
         if (GetTile(topCenter.x, topCenter.y) != "floor")
         {
