@@ -34,7 +34,7 @@ public class ChickenScript : MonoBehaviour
         anim.SetBool("isDead", isDead);
 
         Vector2 direction = (player.transform.position - chicken.transform.position).normalized;
-        sp.flipX = direction.x < 0;
+        
 
         if(health <= 0)
         {

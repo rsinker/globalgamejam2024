@@ -10,30 +10,26 @@ public class ProjectileEnemy : Enemy
     [SerializeField] private float m_AttackCooldown = 3f;
     [SerializeField] private float m_AttackLength = 1f;
     [SerializeField] private float m_AttackFrequency = .1f;
+    private bool m_IsAttacking = false;
 
     [Header("Projectile Components")]
-    [SerializeField] private Projectile p_Projectile;
-    [SerializeField] private Transform p_SpawnPoint;
+    [SerializeField] private Projectile _Projectile;
+    [SerializeField] private Transform _SpawnPoint;
 
     [Header("Projectile Stats")]
     [SerializeField] public float m_ProjectileSpeed = 1f;
     [SerializeField][Range(0.0f, 1.0f)] public float m_BulletFollow = 1f;
-
-    [Header("References")]
-    private PlayerController _playerController;
 
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        _playerController = PlayerManager.Instance._playerController;
+        StartCoroutine(EnemyLoop());
     }
-    protected override void Update()
+    private void FixedUpdate()
     {
-        base.Update();
-        //Use this when you want to shoot.
-            //StartCoroutine(Shoot());
+        UpdateMovement();
     }
 
     private IEnumerator Shoot()
@@ -41,11 +37,39 @@ public class ProjectileEnemy : Enemy
         int projectileCount = (int)(m_AttackLength / m_AttackFrequency);
         for (int i = 0; i < projectileCount; i++)
         {
-            Projectile p = Instantiate(p_Projectile, p_SpawnPoint.position, Quaternion.identity, p_SpawnPoint);
-            p.t_Player = _playerController.transform;
+            Projectile p = Instantiate(_Projectile, _SpawnPoint.position, Quaternion.identity, _SpawnPoint);
+            p.t_Player = m_PlayerController.transform;
             p.m_Enemy = this;
             yield return new WaitForSeconds(m_AttackFrequency);
         }
+    }
+
+    IEnumerator EnemyLoop()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(m_AttackCooldown);
+            m_Animator.SetBool("isShooting", true);
+            m_IsAttacking = true;
+
+            yield return StartCoroutine(Shoot());
+            m_Animator.SetBool("isShooting", false);
+            m_IsAttacking = false;
+
+
+        }
+        
+    }
+
+    void UpdateMovement()
+    {
+        if (m_IsAttacking)
+        {
+            return;
+        }
+        transform.position = Vector2.MoveTowards(transform.position, m_PlayerController.transform.position, speed);
+        Vector2 direction = (m_PlayerController.transform.position - transform.position).normalized;
+        m_SpriteRenderer.flipX = direction.x < 0;
     }
 
 

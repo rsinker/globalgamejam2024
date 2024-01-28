@@ -15,7 +15,7 @@ public class PlayerStats : MonoBehaviour
     private PlayerController m_PlayerController;
     private DamageFlash m_PlayerDamageFlash;
     private PlayerManager m_PlayerManager;
-
+    
     [Header("Sound Effects")]
     [SerializeField] private string s_playerHurt;
     [SerializeField] private string s_playerDeath;

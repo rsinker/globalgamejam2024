@@ -368,8 +368,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _flashColor: {r: 2.1185474, g: 2.1185474, b: 2.1185474, a: 1}
   _flashTime: 0.25
-  _spriteRenderer: {fileID: 5721212776004062504}
-  _material: {fileID: 2100000, guid: f3cda6c06c6fd1845840fac9ebdeae00, type: 2}
+  _spriteRenderers: []
+  _materials: []
 --- !u!1 &6085617446875802985
 GameObject:
   m_ObjectHideFlags: 0
