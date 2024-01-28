@@ -11,6 +11,22 @@ public enum CookingType
 
 public class CookingManager : MonoBehaviour
 {
+    public static CookingManager Instance;
+
+    public Food _carriedItem = null;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
