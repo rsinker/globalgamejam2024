@@ -152,6 +152,7 @@ public class BoardManager : MonoBehaviour
             {
                 Debug.Log("Spawn Boss");
                 currentRoom = new Room(ProceduralConstants.FAKE_BOSS_SIZE, ProceduralConstants.FAKE_BOSS_SIZE);
+                GameManager.state = GameState.InBossArea;
             }
             else if (spawningShop == false) 
             {
@@ -162,12 +163,15 @@ public class BoardManager : MonoBehaviour
                 //gameMap[mapCoordinates.x, mapCoordinates.y] = currentRoom;
                 roomCountShop++;
                 roomCountBoss++;
+
+                GameManager.state = GameState.InCombatArea;
             }
             else
             {
                 //Debug.Log("Spawn Shop 2");
                 currentRoom = new Room(ProceduralConstants.FAKE_SHOP_SIZE, ProceduralConstants.FAKE_SHOP_SIZE);
                 //gameMap[mapCoordinates.x, mapCoordinates.y] = currentRoom;
+                GameManager.state = GameState.InPassiveArea;
             }
 
             gameMap[mapCoordinates.x, mapCoordinates.y] = currentRoom;

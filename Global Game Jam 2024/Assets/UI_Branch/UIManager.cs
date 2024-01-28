@@ -8,7 +8,9 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private string m_MainScene;
 
+    [SerializeField] private GameObject cutSceneObject;
     public UnityEngine.Video.VideoPlayer videoPlayer;
+    private bool checkForVidOver = false;
     
     //private static UIManager Instance; //{ get; private set; }
     private void Start()
@@ -26,18 +28,30 @@ public class UIManager : MonoBehaviour
 
         //videoPlayer = GetComponent<UnityEngine.Video.VideoPlayer>();
 
-        //videoPlayer.Pause();
+        videoPlayer.Pause();
 
-        //videoPlayer.isLooping = false;
+        videoPlayer.isLooping = false;
 
 
     }
 
+    private void Update()
+    {
+        if (checkForVidOver == true)
+        {
+            if (videoPlayer.isPlaying == false)
+            {
+                SceneManager.LoadScene(m_MainScene);
+                checkForVidOver = false;
+            }
+        }
+    }
+
     public void playGame () {
 
-        //videoPlayer.Play();
-        SceneManager.LoadScene(m_MainScene);
-
+        cutSceneObject.SetActive(true);
+        videoPlayer.Play();
+        checkForVidOver = true;
     }
 
     public void quitGame () {

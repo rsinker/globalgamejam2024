@@ -6,12 +6,25 @@ using UnityEngine;
 public enum GameState
 {
     MainMenu,
-    InGame,
+    InCombatArea,
+    InPassiveArea,
+    InBossArea,
     OutGame
 }
 public class GameManager : MonoBehaviour
 {
-    private static GameManager Instance;
+    public static GameManager Instance;
+    public static GameState state = GameState.MainMenu;
+    //public static string currentRecipe;
+    public static bool leftDoorLocked = true;
+    public static bool rightDoorLocked = true;
+    public static bool topDoorLocked = true;
+    public static bool bottomDoorLocked = true;
+
+
+    public static bool dialogueRunning = false;
+
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -24,6 +37,14 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public static void ResetRoomLock()
+    {
+        leftDoorLocked = true;
+        rightDoorLocked = true;
+        topDoorLocked = true;
+        bottomDoorLocked = true;
     }
 }
 
