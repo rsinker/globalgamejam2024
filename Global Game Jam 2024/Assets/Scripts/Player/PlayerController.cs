@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     [SerializeField] private Transform m_Weapon;
+    [SerializeField] SpriteRenderer m_SpriteRenderer; //my stuff
+    [SerializeField] Animator m_Animator; //my stuff
 
     [Header("Layer Masks")]
     [SerializeField] private LayerMask wallLayer;
@@ -50,6 +52,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        m_Animator.SetFloat("Horizontal", rb.velocity.magnitude); //my stuff
+        
+
         WeaponFollowCursor();
         UpdateAudio();
         if (Input.GetButtonDown("Dash") && canDash) {
@@ -108,6 +113,8 @@ public class PlayerController : MonoBehaviour
     private void MoveCharacter()
     {
         rb.velocity = GetInput().normalized*maxMoveSpeed;
+        Vector2 direction = rb.velocity; //my stuff
+        m_SpriteRenderer.flipX = direction.x < 0; //my stuff
     }
 
     private void ApplyLinearDrag()
