@@ -20,7 +20,7 @@ public class Door : MonoBehaviour
     {
         if (boardManager == null)
         {
-            boardManager = Object.FindObjectOfType<BoardManager>(); ;
+            boardManager = Object.FindObjectOfType<BoardManager>();
         }
     }
 

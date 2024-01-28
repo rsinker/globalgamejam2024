@@ -37,14 +37,18 @@ public class BoardManager : MonoBehaviour
 
     //Change to enum
     Room currentRoom;
+    Room[,] gameMap = new Room[ProceduralConstants.MAX_MAP_HORIZ, ProceduralConstants.MAX_MAP_VERT];
+    public static Vector2Int mapCoordinates = new Vector2Int(ProceduralConstants.MAX_MAP_HORIZ / 2, ProceduralConstants.MAX_MAP_VERT / 2);
 
 
     //string[,] boardData;
 
+    private GameObject playerRef;
+
 
     Count wallCount = new Count(5, 9);
     //int Count foodCount(1, 5);
-    public GameObject exit;
+    //public GameObject exit;
     public Tile[] floorTiles;
     public Tile[] wallTiles;
     //public GameObject[] enemyTiles;
@@ -60,6 +64,9 @@ public class BoardManager : MonoBehaviour
 
     private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
+
+    private int roomsVisited = 1;
+    private float chanceShop = ProceduralConstants.BEGIINING_CHANCE_OF_SHOP;
 
     void InitializeList()
     {
@@ -112,14 +119,36 @@ public class BoardManager : MonoBehaviour
     void BoardSetup()
     {
         boardHolder = new GameObject("BoardParentObj").transform;
-        currentRoom = new Room(collumns, rows);
+        if (gameMap[mapCoordinates.x, mapCoordinates.y] == null)
+        {
+            bool spawningShop = CheckIfShop();
+            if (spawningShop == false) 
+            {
+                currentRoom = new Room(collumns, rows);
+                currentRoom.CarveRoom(minSplats, maxSplats, minSplatSize, maxSplatSize, rows, collumns);
+                currentRoom.GenerateDoors(rows, collumns);
+                gameMap[mapCoordinates.x, mapCoordinates.y] = currentRoom;
+                roomsVisited++;
+            }
+            else
+            {
+                Debug.Log("MAKE SHOP");
+            }
+            
+
+
+            
+            
+        }
+        else
+        {
+            currentRoom = gameMap[mapCoordinates.x, mapCoordinates.y];
+        }
+
+        //Debug.Log("Creating map for: " + mapCoordinates);
 
         //Make some kind of raised area
         //int numSplats = Random.Range(minSplats, maxSplats);
-        
-
-        currentRoom.CarveRoom(minSplats, maxSplats, minSplatSize, maxSplatSize, rows, collumns);
-        currentRoom.GenerateDoors(rows, collumns);
 
         MakeBoard();
     }
@@ -202,19 +231,104 @@ public class BoardManager : MonoBehaviour
         //LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
         //int enemyCount = (int)Mathf.Log(level, 2f);
         //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
-        Instantiate(exit, new Vector3(collumns-1, rows-1, 0f), Quaternion.identity);
+        //Instantiate(exit, new Vector3(collumns-1, rows-1, 0f), Quaternion.identity);
     }
 
     public void MoveToNewRoom(Door.Direction direction)
     {
-        Debug.Log("Leaving room from: " + direction.ToString());
+        //Debug.Log("Leaving room from: " + direction.ToString());
+        Destroy(boardHolder.gameObject);
+        tilemap.ClearAllTiles();
+
+        if (direction == Door.Direction.left)
+        {
+            mapCoordinates.x--;
+        }
+        else if (direction == Door.Direction.right)
+        {
+            mapCoordinates.x++;
+        }
+        else if (direction == Door.Direction.up)
+        {
+            mapCoordinates.y++;
+        }
+        else if (direction == Door.Direction.down)
+        {
+            mapCoordinates.y--;
+        }
+
+        
+
         SetupScene();
+        SpawnPlayer(direction);
+    }
+
+    void SpawnPlayer(Door.Direction direction)
+    {
+        Vector2 spawnPoint = Vector2.zero;
+        if (direction == Door.Direction.left)
+        {
+            spawnPoint = new Vector2(currentRoom.rightDoorPos.x - GameConstants.PLAYER_SPAWN_OFFSET, currentRoom.rightDoorPos.y);
+            /*if (currentRoom.GetTile(new Vector2Int((int)spawnPoint.x, (int)spawnPoint.y)) != "floor")
+            {
+                Debug.Log("FIND NEW SPAWN POINT");
+                spawnPoint = currentRoom.GetValidFloatPosition(spawnPoint);
+            }
+            playerRef.transform.position = new Vector3(spawnPoint.x, spawnPoint.y, 0);*/
+        }
+        else if (direction == Door.Direction.right)
+        {
+            spawnPoint = new Vector2(currentRoom.leftDoorPos.x + GameConstants.PLAYER_SPAWN_OFFSET, currentRoom.leftDoorPos.y);
+            
+        }
+        else if (direction == Door.Direction.up)
+        {
+            spawnPoint = new Vector2(currentRoom.bottomDoorPos.x, currentRoom.bottomDoorPos.y + GameConstants.PLAYER_SPAWN_OFFSET);
+            //playerRef.transform.position = new Vector3(currentRoom.bottomDoorPos.x, currentRoom.bottomDoorPos.y + GameConstants.PLAYER_SPAWN_OFFSET, 0);
+        }
+        else if (direction == Door.Direction.down)
+        {
+            spawnPoint = new Vector2(currentRoom.topDoorPos.x, currentRoom.topDoorPos.y - GameConstants.PLAYER_SPAWN_OFFSET);
+            //playerRef.transform.position = new Vector3(currentRoom.topDoorPos.x, currentRoom.topDoorPos.y - GameConstants.PLAYER_SPAWN_OFFSET, 0);
+        }
+
+        if (currentRoom.GetTile(new Vector2Int((int)spawnPoint.x, (int)spawnPoint.y)) != "floor")
+        {
+            Debug.Log("FIND NEW SPAWN POINT");
+            spawnPoint = currentRoom.GetValidFloatPosition(spawnPoint);
+        }
+        playerRef.transform.position = new Vector3(spawnPoint.x, spawnPoint.y, 0);
+    }
+
+    bool CheckIfShop()
+    {
+        if (roomsVisited > ProceduralConstants.MIN_ROOMS_BEFORE_SHOP)
+        {
+            float randomizer = Random.Range(0f, 1f);
+            if (randomizer < chanceShop)
+            {
+                Debug.Log("Spawn Shop");
+                chanceShop = ProceduralConstants.BEGIINING_CHANCE_OF_SHOP;
+                roomsVisited = 1;
+                return true;
+            }
+            else
+            {
+                Debug.Log(randomizer + ": No Shop from chance: " + chanceShop);
+                chanceShop += ProceduralConstants.CHANCE_OF_SHOP_INCREMENT;
+                return false;
+
+            }
+        }
+
+        return false;
     }
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        playerRef = Object.FindObjectOfType<PlayerController>().gameObject;
         SetupScene();
     }
 

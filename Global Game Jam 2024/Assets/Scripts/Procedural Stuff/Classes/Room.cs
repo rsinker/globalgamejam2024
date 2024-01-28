@@ -18,6 +18,11 @@ public class Room
     Vector2Int leftCenter;
     Vector2Int bottomCenter;
 
+    [HideInInspector] public Vector2Int topDoorPos;
+    [HideInInspector] public Vector2Int bottomDoorPos;
+    [HideInInspector] public Vector2Int leftDoorPos;
+    [HideInInspector] public Vector2Int rightDoorPos;
+
     public Room(int collumns, int rows)
     {
         roomData = new string[collumns,rows];
@@ -45,6 +50,11 @@ public class Room
     public string GetTile(int x, int y)
     {
         return roomData[x,y];
+    }
+
+    public string GetTile(Vector2Int pos)
+    {
+        return roomData[pos.x, pos.y];
     }
 
     public void CarveRoom (int minSplats, int maxSplats, int minSplatSize, int maxSplatSize, int rows, int collumns)
@@ -117,40 +127,52 @@ public class Room
 
     public void GenerateDoors(int rows, int collumns)
     {
-        Debug.Log("Generating rooms");
+        // Debug.Log("Generating rooms");
+        //Debug.Log("Generating doors for: " + BoardManager.mapCoordinates);
 
-        Vector2Int validTop = topCenter;
-        if (GetTile(topCenter.x, topCenter.y) != "floor")
+        if (BoardManager.mapCoordinates.y < ProceduralConstants.MAX_MAP_VERT - 1)
         {
-            validTop = GetValidPosition(topCenter);
+            Vector2Int validTop = topCenter;
+            if (GetTile(topCenter.x, topCenter.y) != "floor")
+            {
+                validTop = GetValidPosition(topCenter);
+            }
+            topDoorPos = validTop;
+            SetTile(validTop.x, validTop.y, "upperDoor");
         }
-        SetTile(validTop.x, validTop.y, "upperDoor");
 
-
-        Vector2Int validLeft = leftCenter;
-        if (GetTile(leftCenter.x, leftCenter.y) != "floor")
+        if (BoardManager.mapCoordinates.y > 0)
         {
-            validLeft = GetValidPosition(leftCenter);
+            Vector2Int validBottom = bottomCenter;
+            if (GetTile(bottomCenter.x, bottomCenter.y) != "floor")
+            {
+                validBottom = GetValidPosition(bottomCenter);
+            }
+            bottomDoorPos = validBottom;
+            SetTile(validBottom.x, validBottom.y, "bottomDoor");
         }
-        SetTile(validLeft.x, validLeft.y, "leftDoor");
-
-
-        Vector2Int validRight = rightCenter;
-        if (GetTile(rightCenter.x, rightCenter.y) != "floor")
+        
+        if (BoardManager.mapCoordinates.x < ProceduralConstants.MAX_MAP_HORIZ - 1)
         {
-            validRight = GetValidPosition(rightCenter);
+            Vector2Int validRight = rightCenter;
+            if (GetTile(rightCenter.x, rightCenter.y) != "floor")
+            {
+                validRight = GetValidPosition(rightCenter);
+            }
+            rightDoorPos = validRight;
+            SetTile(validRight.x, validRight.y, "rightDoor");
         }
-        SetTile(validRight.x, validRight.y, "rightDoor");
-
-
-        Vector2Int validBottom = bottomCenter;
-        if (GetTile(bottomCenter.x, bottomCenter.y) != "floor")
+        
+        if (BoardManager.mapCoordinates.x > 0)
         {
-            validBottom = GetValidPosition(bottomCenter);
+            Vector2Int validLeft = leftCenter;
+            if (GetTile(leftCenter.x, leftCenter.y) != "floor")
+            {
+                validLeft = GetValidPosition(leftCenter);
+            }
+            leftDoorPos = validLeft;
+            SetTile(validLeft.x, validLeft.y, "leftDoor");
         }
-        SetTile(validBottom.x, validBottom.y, "bottomDoor");
-
-
 
         //SetTile(leftCenter.x, leftCenter.y, "leftDoor");
 
@@ -159,7 +181,7 @@ public class Room
         //SetTile(bottomCenter.x, bottomCenter.y, "bottomDoor");
     }
 
-    Vector2Int GetValidPosition(Vector2Int pos)
+    public Vector2Int GetValidPosition(Vector2Int pos)
     {
         Vector2Int closestMatch = new Vector2Int(0, 0);
         float closestDistance = 100000f;
@@ -180,7 +202,33 @@ public class Room
             }
         }
 
-        Debug.Log(closestMatch + " <-- " + pos);
+        //Debug.Log(closestMatch + " <-- " + pos);
+
+        return closestMatch;
+    }
+
+    public Vector2 GetValidFloatPosition(Vector2 pos)
+    {
+        Vector2 closestMatch = new Vector2(0, 0);
+        float closestDistance = 100000f;
+
+        for (int x = 0; x < roomData.GetLength(1); x++)
+        {
+            for (int y = 0; y < roomData.GetLength(0); y++)
+            {
+                if (GetTile(x, y) == "floor")
+                {
+                    float newDistance = Vector2.Distance(pos, new Vector2(x, y));
+                    if (closestDistance > newDistance)
+                    {
+                        closestMatch = new Vector2(x, y);
+                        closestDistance = newDistance;
+                    }
+                }
+            }
+        }
+
+        //Debug.Log(closestMatch + " <-- " + pos);
 
         return closestMatch;
     }
