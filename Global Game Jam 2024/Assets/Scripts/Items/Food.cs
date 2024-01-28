@@ -14,7 +14,7 @@ public class Food : Item
     } 
     override protected void Interact()
     {
-        if (!isPickedUp && isInteractable) {
+        if (!isPickedUp) {
             PickUp();
         } else {
             Drop();
