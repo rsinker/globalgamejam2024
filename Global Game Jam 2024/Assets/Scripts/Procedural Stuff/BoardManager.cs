@@ -161,6 +161,7 @@ public class BoardManager : MonoBehaviour
             }
             else if (spawningShop == false) 
             {
+                GameManager.ResetRoomLock();
                 currentRoom = new Room(collumns, rows);
                 currentRoom.CarveRoom(minSplats, maxSplats, minSplatSize, maxSplatSize, rows, collumns);
                 currentRoom.GenerateDoors(rows, collumns);
@@ -368,8 +369,9 @@ public class BoardManager : MonoBehaviour
 
         SetupScene();
         SpawnPlayer(direction);
+        GameManager.roomCount++;
 
-        Debug.Log("Load: " + mapCoordinates);
+        //Debug.Log("Load: " + mapCoordinates);
     }
 
     void SpawnPlayer(Door.Direction direction)
@@ -466,6 +468,11 @@ public class BoardManager : MonoBehaviour
             //disable leftDoor
             shopLeftDoor.SetActive(false);
         }
+
+        GameManager.topDoorLocked = false;
+        GameManager.bottomDoorLocked = false;
+        GameManager.leftDoorLocked = false;
+        GameManager.rightDoorLocked = false;
     }
 
     void MakeBoss()
@@ -495,6 +502,11 @@ public class BoardManager : MonoBehaviour
             //disable leftDoor
             bossLeftDoor.SetActive(false);
         }
+
+        GameManager.topDoorLocked = false;
+        GameManager.bottomDoorLocked = false;
+        GameManager.leftDoorLocked = false;
+        GameManager.rightDoorLocked = false;
     }
 
     void MakeHub()
@@ -503,6 +515,11 @@ public class BoardManager : MonoBehaviour
 
         boardHolder = new GameObject("BoardParentObj").transform;
         currentRoom = new Room(ProceduralConstants.FAKE_HUB_SIZE, ProceduralConstants.FAKE_HUB_SIZE);
+
+        GameManager.topDoorLocked = false;
+        GameManager.bottomDoorLocked = false;
+        GameManager.leftDoorLocked = false;
+        GameManager.rightDoorLocked = false;
     }
 
     bool CheckIfBoss()

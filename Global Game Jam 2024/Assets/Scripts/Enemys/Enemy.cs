@@ -92,6 +92,7 @@ abstract public class Enemy : MonoBehaviour
         currentHealth -= recievedDamage;
         if(currentHealth < 0)
         {
+            GameManager.enemiesKilledInRoom++;
             m_Animator.SetBool("isDead", true);
             DropIngredients();
             //TODO: Animate death, set destroy to delete gameobject after animation finished.

@@ -39,6 +39,7 @@ public class Door : Item
 
     protected override void Interact()
     {
+        Debug.Log("Door");
         if ((doorDirection == Direction.up && GameManager.topDoorLocked == false) || (doorDirection == Direction.down && GameManager.bottomDoorLocked == false) || (doorDirection == Direction.left && GameManager.leftDoorLocked == false) || (doorDirection == Direction.right && GameManager.bottomDoorLocked == false))
         {
             boardManager.MoveToNewRoom(doorDirection);

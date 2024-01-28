@@ -21,6 +21,8 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnEnemies()
     {
         //enemyParent = new GameObject("EnemyParentObj").transform;
+        int difficulty = (int)(GameManager.roomCount * GameManager.ROOMS_TO_DIFFICULTY);
+        Debug.Log(difficulty);
 
         int randEnemyIndex = Random.Range(0, currentEnemyArray.Length);
         GameObject toSpawn = currentEnemyArray[randEnemyIndex];
