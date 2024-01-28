@@ -16,10 +16,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public static GameState state = GameState.MainMenu;
     //public static string currentRecipe;
-    public static bool leftDoorLocked = false;
+    /*public static bool leftDoorLocked = false;
     public static bool rightDoorLocked = false;
     public static bool topDoorLocked = false;
-    public static bool bottomDoorLocked = false;
+    public static bool bottomDoorLocked = false;*/
 
 
     public static bool dialogueRunning = false;
@@ -44,16 +44,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        Debug.Log("killed in room: " + enemiesKilledInRoom);
-        if (enemiesKilledInRoom >= 5)
-        {
-            UnlockDoors();
-        }
-    }
-
-    public static void ResetRoomLock()
+    /*public static void ResetRoomLock()
     {
         enemiesKilledInRoom = 0;
         leftDoorLocked = true;
@@ -68,6 +59,6 @@ public class GameManager : MonoBehaviour
         rightDoorLocked = false;
         topDoorLocked = false;
         bottomDoorLocked = false;
-    }
+    }*/
 }
 
