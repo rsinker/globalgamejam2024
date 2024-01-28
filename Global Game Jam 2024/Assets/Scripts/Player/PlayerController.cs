@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Sound Effects")]
     [SerializeField] private string m_InteractSound;
+    [SerializeField] private string m_Fart;
 
     private float dashBufferCounter;
     public bool isDashing { get; private set; }
@@ -52,6 +53,10 @@ public class PlayerController : MonoBehaviour
     {
         WeaponFollowCursor();
         UpdateAudio();
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            m_AudioManager.PlaySoundOnce(m_Fart);
+        }
         if (Input.GetButtonDown("Dash") && canDash) {
             dashBufferCounter = dashBufferLength;
             StartCoroutine(Dash(GetInput()));

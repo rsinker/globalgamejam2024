@@ -8,10 +8,13 @@ abstract public class Enemy : MonoBehaviour
     [Header("Basic Stats")]
     [SerializeField] float maxHealth = 10f;
     [SerializeField] private float damage = 1f;
-    private bool isInRange = false;
     [SerializeField] protected float speed = 0.01f;
+    [SerializeField] protected float m_deathAnimationDelay = 0.5f;
+
+    private bool isInRange = false;
     private float currentHealth;
     private float playerWeaponDamage;
+    
     protected bool m_isDead => currentHealth < 0;
 
     protected Animator m_Animator;
@@ -30,6 +33,8 @@ abstract public class Enemy : MonoBehaviour
     [SerializeField] private string m_moving;
     [SerializeField] protected string m_attack;
 
+
+    protected abstract IEnumerator CombatLoop();
 
     protected virtual void Start()
     {
@@ -52,6 +57,13 @@ abstract public class Enemy : MonoBehaviour
         }
     }
 
+    protected void FollowPlayer()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, m_PlayerController.transform.position, speed);
+        Vector2 direction = (m_PlayerController.transform.position - transform.position).normalized;
+        m_SpriteRenderer.flipX = direction.x < 0;
+    }
+
     private void TakeDamage(float recievedDamage)
     {
         
@@ -63,12 +75,12 @@ abstract public class Enemy : MonoBehaviour
             //my_Anim.SetBool("isExploded", true);
             StopAllCoroutines();
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            Destroy(gameObject, 0.5f);
+            Destroy(gameObject, m_deathAnimationDelay);
             m_AudioManager.PlaySoundOnce(m_death);
         } 
         else //Takes damage but doesn't die
         {
-            m_DamageFlash.CallDamageFlash();
+            //m_DamageFlash.CallDamageFlash();
             m_AudioManager.PlaySoundOnce(m_hurt);
         }
     }
