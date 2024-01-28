@@ -213,6 +213,7 @@ MonoBehaviour:
   upperDoor: {fileID: 4685919056546141051, guid: 3ac9bd3e99ad63d459d4696fc09cafff, type: 3}
   leftDoor: {fileID: 2517342848721002999, guid: 6540345c11010484e94cfdbb5ed03cce, type: 3}
   rightDoor: {fileID: 2353745052961923525, guid: 17b1d9df0e60af94fabebde2a954e564, type: 3}
+  bottomDoor: {fileID: 1966093818238101484, guid: 5ff97f0e1901dc14cb9e0b1890de7f6f, type: 3}
   tilemap: {fileID: 2133672822}
 --- !u!4 &150805160
 Transform:

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 
@@ -7,10 +8,15 @@ public class Room
 {
     string[,] roomData;
 
-    Vector2 tL;
-    Vector2 tR;
-    Vector2 bL;
-    Vector2 bR;
+    int top;
+    int right;
+    int left;
+    int bottom;
+
+    Vector2Int topCenter;
+    Vector2Int rightCenter;
+    Vector2Int leftCenter;
+    Vector2Int bottomCenter;
 
     public Room(int collumns, int rows)
     {
@@ -25,10 +31,10 @@ public class Room
             }
         }
 
-        tL = new Vector2(0, 0);
-        tR = new Vector2(0, 0);
-        bL = new Vector2(0, 0);
-        bR = new Vector2(0, 0);
+        top = 0;
+        right = 0;
+        left = 100;
+        bottom = 100;
     }
 
     public void SetTile(int x, int y, string tileName)
@@ -52,6 +58,9 @@ public class Room
 
             Carve(x, y, range);
         }
+
+        GetDimensions();
+
     }
 
     void Carve(int x, int y, int range)
@@ -63,82 +72,114 @@ public class Room
                 if ((dx - range) * (dx - range) + (dy - range) * (dy - range) <= range * range)
                 {
                     SetTile(x + dx, y + dy, "floor");
-                    /*if (tL.y < y + dy)
-                    {
-                        tL.y = y + dy;
-                        tL.x = x + dx;
-                    }
-
-                    if (bL.y > y + dy)
-                    {
-                        bL.y = y + dy;
-                        bL.x = x + dx;
-                    }
-
-                    if (tR.y < y + dy || tR.x < x + dx)
-                    {
-                        tR.y = y + dy;
-                        tR.x = x + dx;
-                    }*/
                 }
             }
         }
     }
 
+    void GetDimensions()
+    {
+        for (int x = 0; x < roomData.GetLength(1); x++)
+        {
+            for (int y = 0; y < roomData.GetLength(0); y++)
+            {
+                if (GetTile(x,y) == "floor")
+                {
+                    if (top < y)
+                    {
+                        top = y;
+                    }
+
+                    if (left > x)
+                    {
+                        left = x;
+                    }
+
+                    if (right < x)
+                    {
+                        right = x;
+                    }
+
+                    if (bottom > y)
+                    {
+                        bottom = y;
+                    }
+                }
+            }
+        }
+
+        topCenter = new Vector2Int(left + (right - left) / 2, top);
+        bottomCenter = new Vector2Int(left + (right - left) / 2, bottom);
+        leftCenter = new Vector2Int(left, bottom + (top - bottom) / 2);
+        rightCenter = new Vector2Int(right, bottom + (top - bottom) / 2);
+
+    }
+
     public void GenerateDoors(int rows, int collumns)
     {
-        //Find top left door
-        int maxRowTL = 0;
-        int validXTL = 0;
-        for (int x = 0; x < collumns; x++)
+        Vector2Int validTop = topCenter;
+        if (GetTile(topCenter.x, topCenter.y) != "floor")
         {
-            for (int y = 0; y < rows; y++)
+            validTop = GetValidPosition(topCenter);
+        }
+        SetTile(validTop.x, validTop.y, "upperDoor");
+
+
+        Vector2Int validLeft = leftCenter;
+        if (GetTile(leftCenter.x, leftCenter.y) != "floor")
+        {
+            validLeft = GetValidPosition(leftCenter);
+        }
+        SetTile(validLeft.x, validLeft.y, "leftDoor");
+
+
+        Vector2Int validRight = rightCenter;
+        if (GetTile(rightCenter.x, rightCenter.y) != "floor")
+        {
+            validRight = GetValidPosition(rightCenter);
+        }
+        SetTile(validRight.x, validRight.y, "rightDoor");
+
+
+        Vector2Int validBottom = bottomCenter;
+        if (GetTile(bottomCenter.x, bottomCenter.y) != "floor")
+        {
+            validBottom = GetValidPosition(bottomCenter);
+        }
+        SetTile(validBottom.x, validBottom.y, "bottomDoor");
+
+
+
+        //SetTile(leftCenter.x, leftCenter.y, "leftDoor");
+
+
+        //SetTile(rightCenter.x, rightCenter.y, "rightDoor");
+        //SetTile(bottomCenter.x, bottomCenter.y, "bottomDoor");
+    }
+
+    Vector2Int GetValidPosition(Vector2Int pos)
+    {
+        Vector2Int closestMatch = new Vector2Int(0, 0);
+        float closestDistance = 100000f;
+
+        for (int x = 0; x < roomData.GetLength(1); x++)
+        {
+            for (int y = 0; y < roomData.GetLength(0); y++)
             {
-                if (y > maxRowTL && GetTile(x, y) == "floor")
+                if (GetTile(x, y) == "floor")
                 {
-                    maxRowTL = y;
-                    validXTL = x;
+                    float newDistance = Vector2Int.Distance(pos, new Vector2Int(x, y));
+                    if (closestDistance > newDistance)
+                    {
+                        closestMatch = new Vector2Int(x, y);
+                        closestDistance = newDistance;
+                    }
                 }
             }
         }
 
-        SetTile(validXTL, maxRowTL, "upperDoor");
+        Debug.Log(closestMatch + " <-- " + pos);
 
-        //boardData[validXTL, maxRowTL] = "upperDoor";
-
-        //Find bottom left door
-        int minRow = 100;
-        int validXBL = 0;
-        for (int x = 0; x < collumns; x++)
-        {
-            for (int y = 0; y < rows; y++)
-            {
-                if (y < minRow && GetTile(x, y) == "floor")
-                {
-                    minRow = y;
-                    validXBL = x;
-                }
-            }
-        }
-
-        SetTile(validXBL, minRow, "leftDoor");
-
-        //Find top right door
-        int maxRowTR = 0;
-        int validXTR = 0;
-        for (int x = 0; x < collumns; x++)
-        {
-            for (int y = 0; y < rows; y++)
-            {
-                if ((y > maxRowTR || x > validXTR) && GetTile(x, y) == "floor")
-                {
-                    maxRowTR = y;
-                    validXTR = x;
-                }
-            }
-        }
-
-        SetTile(validXTR, maxRowTR, "rightDoor");
-        //boardData[validXTR, maxRowTR] = "rightDoor";
+        return closestMatch;
     }
 }

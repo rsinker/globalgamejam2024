@@ -52,6 +52,7 @@ public class BoardManager : MonoBehaviour
     public GameObject upperDoor;
     public GameObject leftDoor;
     public GameObject rightDoor;
+    public GameObject bottomDoor;
 
     public Tilemap tilemap;
     
@@ -154,6 +155,11 @@ public class BoardManager : MonoBehaviour
                 else if (currentRoom.GetTile(x, y) == "rightDoor")
                 {
                     GameObject instance = Instantiate(rightDoor, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
+                    instance.transform.SetParent(boardHolder);
+                }
+                else if (currentRoom.GetTile(x, y) == "bottomDoor")
+                {
+                    GameObject instance = Instantiate(bottomDoor, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
                 }
                 else
