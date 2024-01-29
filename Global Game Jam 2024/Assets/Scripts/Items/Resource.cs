@@ -22,6 +22,11 @@ public class Resource : Item
         PlayerManager.Instance._playerStats = m_playerStats;
     }
 
+    private void Awake()
+    {
+        m_playerStats = PlayerManager.Instance._playerStats;
+    }
+
     override protected void Interact()
     {
         if(m_resourceType == ResourceType.maxHealth)

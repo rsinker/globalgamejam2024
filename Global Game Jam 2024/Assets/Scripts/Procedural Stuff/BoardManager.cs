@@ -68,6 +68,8 @@ public class BoardManager : MonoBehaviour
 
     private Transform boardHolder;
     private Transform doorHolder;
+    public static Transform foodHolder;
+    public Transform foodHolderObj;
     private List<Vector3> gridPositions = new List<Vector3>();
 
     private int roomCountShop = 1;
@@ -176,6 +178,7 @@ public class BoardManager : MonoBehaviour
                 roomCountBoss++;
 
                 GameManager.state = GameState.InCombatArea;
+                recipeGenerator.PickNewRecipe();
 
                 InvokeRepeating("BeginSpawn", 0.0f, GameConstants.SPAWN_DELAY);
             }
@@ -332,6 +335,7 @@ public class BoardManager : MonoBehaviour
         ToggleDoors(false);
         //Debug.Log("Leaving room from: " + direction.ToString());
         Destroy(boardHolder.gameObject);
+        Destroy(foodHolder.gameObject);
         if (doorHolder != null)
         {
             Destroy(doorHolder.gameObject);
@@ -385,6 +389,8 @@ public class BoardManager : MonoBehaviour
         SpawnPlayer(direction);
         GameManager.roomCount++;
         GameManager.enemiesKilledInRoom = 0;
+
+        foodHolder = new GameObject("FoodParentObj").transform;
 
         //Debug.Log("Load: " + mapCoordinates);
     }
@@ -578,6 +584,7 @@ public class BoardManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        foodHolder = new GameObject("FoodParentObj").transform;
         playerRef = Object.FindObjectOfType<PlayerController>().gameObject;
         //SetupScene();
         MakeHub();
@@ -590,5 +597,11 @@ public class BoardManager : MonoBehaviour
         {
             ToggleDoors(true);
         }
+    }
+
+    public void ClearAll()
+    {
+        Destroy(foodHolder.gameObject);
+        enemySpawner.ResetEnemies();
     }
 }

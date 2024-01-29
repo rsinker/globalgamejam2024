@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _iconUncooked: {fileID: 950551508, guid: d779fd41333404f43a5e1ea5c283121f, type: 3}
   _iconCooked: {fileID: 0}
-  _foodPrefab: {fileID: 0}
+  _foodPrefab: {fileID: 8401738484656307579, guid: cf74d6e7ce6be694b9f3a1023702bf95, type: 3}
   isCooked: 0
   _cookingType: 0

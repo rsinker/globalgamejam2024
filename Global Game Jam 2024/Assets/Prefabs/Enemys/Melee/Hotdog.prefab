@@ -163,10 +163,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 277a80bf2e57e4745a2d68957e100370, type: 2}
   stage: 1
   m_DamageFlash: {fileID: 0}
-  m_hurt: 
-  m_death: 
-  m_moving: 
-  m_attack: 
+  m_hurt: Scream
+  m_death: Scream
+  m_moving: Scream
+  m_attack: Scream
   m_attackDuration: 1
   m_scaleIncrease: 0.1
 --- !u!61 &7608337440014274297

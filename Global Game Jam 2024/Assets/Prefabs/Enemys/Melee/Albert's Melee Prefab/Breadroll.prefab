@@ -134,7 +134,7 @@ MonoBehaviour:
   m_hurt: EnemyHitSfx
   m_death: DeathSoundEnemies
   m_moving: CerberusBreadLands
-  m_attack: 
+  m_attack: Scream
   m_attackDuration: 1
   m_scaleIncrease: 0.25
 --- !u!61 &1971369632701283394

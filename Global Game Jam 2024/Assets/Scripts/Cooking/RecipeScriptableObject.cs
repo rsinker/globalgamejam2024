@@ -8,4 +8,5 @@ public class Recipe : ScriptableObject
     public GameObject[] m_Stage2Enemys;
     public GameObject[] m_Stage3Enemys;
     public Sprite _image;
+    public GameObject recipePrefab;
 }

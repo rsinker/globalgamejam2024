@@ -77,9 +77,16 @@ public class PlayerStats : MonoBehaviour
 
     void Die()
     {
-        Time.timeScale = 0f;
+        StartCoroutine(DiePart2());
+        
+    }
+
+    IEnumerator DiePart2()
+    {
         m_PlayerController.enabled = false;
         m_AudioManager.PlaySoundOnce(s_playerDeath);
+        GameObject.Find("BoardManager").GetComponent<BoardManager>().ClearAll();
+        yield return new WaitForSeconds(6f);
         SceneManager.LoadScene("Death Scene");
     }
 

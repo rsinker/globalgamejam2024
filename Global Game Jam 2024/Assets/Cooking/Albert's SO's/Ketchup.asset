@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc61fb265e851c4fb0346ab60daff1d, type: 3}
   m_Name: Ketchup
   m_EditorClassIdentifier: 
-  m_ingredientList: []
+  m_ingredientList:
+  - {fileID: 11400000, guid: 51b1e50bb503f1f41ac57df524857edf, type: 2}
   m_Stage1Enemys: []
   m_Stage2Enemys: []
-  m_Stage3Enemys: []
+  m_Stage3Enemys:
+  - {fileID: 4940804568144215358, guid: 72598db9f3fb0d644871a406b444814d, type: 3}
   _image: {fileID: 21300000, guid: 61e3aeab6b8372742ac651c7f5ebe39a, type: 3}
+  recipePrefab: {fileID: 0}

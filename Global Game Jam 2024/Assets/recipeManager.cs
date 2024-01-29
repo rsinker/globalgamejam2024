@@ -7,13 +7,18 @@ public class recipeManager : MonoBehaviour
 {
     public List<Recipe> recipes;
 
-    private Recipe currentRecipe;
+    public Recipe currentRecipe;
+
+
+    public EnemySpawner enemySpawner;
 
     public void PickNewRecipe()
     {
         int index = Random.Range(0, recipes.Count);
         currentRecipe = recipes[index];
         Debug.Log("New Recipe: " + currentRecipe.name);
+
+        enemySpawner.InstanceEnemies();
     }
 
     public void RecipeMade()
@@ -21,3 +26,5 @@ public class recipeManager : MonoBehaviour
         
     }
 }
+
+//Shop sprite

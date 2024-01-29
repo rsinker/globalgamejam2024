@@ -11,10 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Room Gen Workspace.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Boss Scene.unity
     guid: 4b80e2b968a6bb64ea0f7ec4e325dba7
   - enabled: 1
     path: Assets/Scenes/Death Scene.unity
     guid: b015c36e5d04b554ca6c6ede686f9159
+  - enabled: 1
+    path: Assets/Scenes/Win Scene.unity
+    guid: 8310e335dc54ab14983e983be6147878
   m_configObjects: {}

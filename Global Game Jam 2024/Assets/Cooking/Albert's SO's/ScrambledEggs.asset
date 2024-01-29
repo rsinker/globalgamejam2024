@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc61fb265e851c4fb0346ab60daff1d, type: 3}
   m_Name: ScrambledEggs
   m_EditorClassIdentifier: 
-  m_ingredientList: []
-  m_Stage1Enemys: []
-  m_Stage2Enemys: []
-  m_Stage3Enemys: []
+  m_ingredientList:
+  - {fileID: 11400000, guid: a776f1a52dd33f442ac6f3fdaa46454d, type: 2}
+  m_Stage1Enemys:
+  - {fileID: 3741638075261289466, guid: ead3e4aba568c0748b97b0d793b31b0f, type: 3}
+  m_Stage2Enemys:
+  - {fileID: 2945618355190489870, guid: 3684e4ebf498789408b02e5c8f1516cf, type: 3}
+  m_Stage3Enemys:
+  - {fileID: 4940804568144215358, guid: 72598db9f3fb0d644871a406b444814d, type: 3}
   _image: {fileID: 21300000, guid: a880770c1cd2ce44ca44a5cd47e390a4, type: 3}
+  recipePrefab: {fileID: 0}

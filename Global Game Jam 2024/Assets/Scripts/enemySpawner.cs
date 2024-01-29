@@ -1,46 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private BoardManager boardManager;
+    [SerializeField] private recipeManager recipeGenerator;
 
     [SerializeField] private GameObject[] completeEnemyArray;
-    private GameObject[] currentEnemyArray;
+    private List<GameObject> currentEnemyArray;
 
 
     private Transform enemyParent;
 
     private void Awake()
     {
-        currentEnemyArray = completeEnemyArray;
+        currentEnemyArray = completeEnemyArray.ToList();
         enemyParent = new GameObject("EnemyParentObj").transform;
     }
     
     public void SpawnEnemies()
     {
-        /*enemyParent = new GameObject("EnemyParentObj").transform;
-        int difficulty = (int)(GameManager.roomCount * GameManager.ROOMS_TO_DIFFICULTY);
-        Debug.Log("Difficulty: " + difficulty);
-        //Index correct difficulty of enemy
-        if (difficulty == 0)
-        {
-            int index = Random.Range(0, cookingManager.m_Stage1Enemys.Length);
-            cookingManager.m_Stage1Enemys[index];
-        }
-        else if (difficulty == 1)
-        {
-            int index = Random.Range(0, cookingManager.m_Stage2Enemys.Length);
-            cookingManager.m_Stage2Enemys[index];
-        }
-        else if (difficulty == 2)
-        {
-            int index = Random.Range(0, cookingManager.m_Stage3Enemys.Length);
-            cookingManager.m_Stage3Enemys[index];
-        }*/
+        
 
-        int randEnemyIndex = Random.Range(0, currentEnemyArray.Length);
+        int randEnemyIndex = Random.Range(0, currentEnemyArray.Count);
         GameObject toSpawn = currentEnemyArray[randEnemyIndex];
 
         
@@ -61,5 +45,20 @@ public class EnemySpawner : MonoBehaviour
         //Delete
         Destroy(enemyParent.gameObject);
         enemyParent = new GameObject("EnemyParentObj").transform;
+    }
+
+    public void InstanceEnemies()
+    {
+        currentEnemyArray = (recipeGenerator.currentRecipe.m_Stage1Enemys).ToList();
+
+        foreach (GameObject en in recipeGenerator.currentRecipe.m_Stage2Enemys)
+        {
+            currentEnemyArray.Add(en);
+        }
+
+        foreach (GameObject en in recipeGenerator.currentRecipe.m_Stage3Enemys)
+        {
+            currentEnemyArray.Add(en);
+        }
     }
 }

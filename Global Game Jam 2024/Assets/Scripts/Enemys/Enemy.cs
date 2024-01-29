@@ -68,7 +68,8 @@ abstract public class Enemy : MonoBehaviour
     {
         foreach(Ingredient ingredient in m_Ingredients)
         {
-            Instantiate(ingredient._foodPrefab, transform.position, Quaternion.identity);
+            GameObject food = Instantiate(ingredient._foodPrefab, transform.position, Quaternion.identity);
+            food.transform.SetParent(BoardManager.foodHolder);
         }
     }
 

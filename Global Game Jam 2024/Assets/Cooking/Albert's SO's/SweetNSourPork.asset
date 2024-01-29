@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc61fb265e851c4fb0346ab60daff1d, type: 3}
   m_Name: SweetNSourPork
   m_EditorClassIdentifier: 
-  m_ingredientList: []
+  m_ingredientList:
+  - {fileID: 11400000, guid: 277a80bf2e57e4745a2d68957e100370, type: 2}
+  - {fileID: 11400000, guid: 6cd84d3404ea05e44a39cdb095e09df7, type: 2}
   m_Stage1Enemys: []
-  m_Stage2Enemys: []
-  m_Stage3Enemys: []
+  m_Stage2Enemys:
+  - {fileID: 2228785257086027275, guid: 55c6c7623cbc0904db704d2602a7d5e8, type: 3}
+  - {fileID: 5330661539523405703, guid: 058ca38c1d170b2439c31df85cd3f6bd, type: 3}
+  m_Stage3Enemys:
+  - {fileID: 5961162584010398120, guid: 0951617395612a745aeb9cbd20070776, type: 3}
+  - {fileID: 4452061414670335792, guid: a6bff72916818cf4da82306786a2a065, type: 3}
   _image: {fileID: 21300000, guid: 52e355664d0ccc7448eb90c7fb79373b, type: 3}
+  recipePrefab: {fileID: 0}
