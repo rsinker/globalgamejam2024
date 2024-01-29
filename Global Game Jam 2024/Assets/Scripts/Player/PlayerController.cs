@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
         UpdateAudio();
         if (Input.GetKeyDown(KeyCode.F))
         {
+            Debug.Log("Heaa");
             m_AudioManager.PlaySoundOnce(m_Fart);
         }
         if (Input.GetButtonDown("Dash") && canDash) {

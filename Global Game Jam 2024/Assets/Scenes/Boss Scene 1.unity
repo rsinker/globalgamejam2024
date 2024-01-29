@@ -7306,6 +7306,14 @@ PrefabInstance:
       propertyPath: _SpawnPoint
       value: 
       objectReference: {fileID: 2043394659}
+    - target: {fileID: 6675614118373617842, guid: 40ce1f5bf16d71447bee760816bb7e57, type: 3}
+      propertyPath: m_shrinkFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675614118373617842, guid: 40ce1f5bf16d71447bee760816bb7e57, type: 3}
+      propertyPath: m_ProjectileSpeed
+      value: 11.16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

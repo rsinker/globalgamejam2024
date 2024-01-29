@@ -19,11 +19,6 @@ public class Resource : Item
     protected override void Start()
     {
         base.Start();
-        PlayerManager.Instance._playerStats = m_playerStats;
-    }
-
-    private void Awake()
-    {
         m_playerStats = PlayerManager.Instance._playerStats;
     }
 
