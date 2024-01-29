@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Archive/Testing Stuff.unity
     guid: c0c9b6a87d4f340e6beb2ba69452eee8
+  - enabled: 1
+    path: Assets/Scenes/Start Menu.unity
+    guid: 606c4aafe22bf564d8e89c9c836530f6
   - enabled: 1
     path: Assets/Scenes/Room Gen Workspace.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
@@ -20,9 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Win Scene.unity
     guid: 8310e335dc54ab14983e983be6147878
-  - enabled: 1
-    path: Assets/Scenes/Start Menu.unity
-    guid: 606c4aafe22bf564d8e89c9c836530f6
   - enabled: 1
     path: Assets/Scenes/Boss Scene 1.unity
     guid: 24c15c7cf84e8d94ba870574e67ef9d2
