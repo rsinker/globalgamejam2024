@@ -41,6 +41,8 @@ public class Food : Item
 
         //Make sure player can only pick up one Item at a time
         if (player.IsCarrying) return;
+        Vector2 dist = (player.transform.position - this.transform.position);
+        if (dist.magnitude > 1) return;
         _cookingManager._carriedItem = this;
         isPickedUp = true;
         player.IsCarrying = true;

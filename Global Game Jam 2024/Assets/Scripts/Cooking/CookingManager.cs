@@ -15,7 +15,6 @@ public class CookingManager : MonoBehaviour
     [SerializeField] private Recipe[] _easyRecipes;
     [SerializeField] private Recipe[] _mediumRecipes;
     [SerializeField] private Recipe[] _hardRecipes;
-    [SerializeField] private Recipe _testRecipe;
 
     [SerializeField] private Transform _plate;
 
@@ -113,13 +112,4 @@ public class CookingManager : MonoBehaviour
         }
     }
 
-    public void GenerateTestRecipe()
-    {
-        _currentRecipe = _testRecipe;
-        _ingredientList = new List<Ingredient>();
-        foreach (Ingredient ingredient in _currentRecipe.m_ingredientList)
-        {
-            _ingredientList.Add(ingredient);
-        }
-    }
 }

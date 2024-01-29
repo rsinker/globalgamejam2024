@@ -79,10 +79,6 @@ public class Equipment : Item  //Blender, Deep Fryer, Pan
             {
                 return;
             }
-
-            Debug.Log(_cookingManager._carriedItem._ingredient._cookingType);
-            Debug.Log(this._cookingType);
-
             if (_cookingManager._carriedItem._ingredient._cookingType != this._cookingType) //Is the carried food not supposed to go here?
             {
                 //Put item on the stove
