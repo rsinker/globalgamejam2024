@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_resourceType: 1
-  m_value: 1
+  m_value: 10
   m_playerStats: {fileID: 0}
   m_pickupSound: Pickup
 --- !u!1 &8107534013191210115
