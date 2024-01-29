@@ -19,12 +19,12 @@ abstract public class Item : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Interact") && isInteractable) {
+        if (Input.GetButtonDown("Interact")) {
             Interact();
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (player == null) {
             player = collision.gameObject.GetComponent<PlayerController>();
@@ -34,7 +34,7 @@ abstract public class Item : MonoBehaviour
         }  
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    protected virtual void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player") {
             isInteractable = false;

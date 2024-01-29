@@ -92,6 +92,11 @@ abstract public class Enemy : MonoBehaviour
         currentHealth -= recievedDamage;
         if(currentHealth < 0)
         {
+            foreach(Ingredient ingredient in m_Ingredients)
+            {
+                Instantiate(ingredient._foodPrefab, transform.position, Quaternion.identity);
+            }
+            
             m_Animator.SetBool("isDead", true);
             DropIngredients();
             //TODO: Animate death, set destroy to delete gameobject after animation finished.

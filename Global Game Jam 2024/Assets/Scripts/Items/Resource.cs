@@ -27,6 +27,7 @@ public class Resource : Item
 
     override protected void Interact()
     {
+        if (!isInteractable) { return; }
         if(m_resourceType == ResourceType.maxHealth)
         {
             m_playerStats.m_MaxHealth += (int) m_value;
