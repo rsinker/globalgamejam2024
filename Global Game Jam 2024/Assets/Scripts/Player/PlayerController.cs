@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Variables")]
     [SerializeField] private float movementAcceleration;
-    [SerializeField] private float maxMoveSpeed;
+    [SerializeField] public float maxMoveSpeed;
     [SerializeField] private float linearDrag;
 
     [Header("Dash Parameters")]
@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Sound Effects")]
     [SerializeField] private string m_InteractSound;
-    [SerializeField] private string m_Fart;
+    [SerializeField] private string m_Fart = "Scream";
+    [SerializeField] private string m_Dash = "Scream";
 
     private float dashBufferCounter;
     public bool isDashing { get; private set; }
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
             m_AudioManager.PlaySoundOnce(m_Fart);
         }
         if (Input.GetButtonDown("Dash") && canDash) {
+            m_AudioManager.PlaySoundOnce(m_Dash);
             dashBufferCounter = dashBufferLength;
             StartCoroutine(Dash(GetInput()));
         }

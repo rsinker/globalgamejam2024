@@ -10,6 +10,8 @@ TagManager:
   - Projectile
   - Interact
   - Obstacle
+  - Equipment
+  - Plate
   layers:
   - Default
   - TransparentFX
