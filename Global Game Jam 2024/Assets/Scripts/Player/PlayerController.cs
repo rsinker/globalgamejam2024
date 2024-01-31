@@ -102,12 +102,10 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = Vector2.zero;
         rb.drag = 0f;
-
         while (Time.time < dashStartTime + dashLength) {
             rb.velocity = dir.normalized * dashSpeed;
             yield return null;
         }
-
         isDashing = false;
     }
 

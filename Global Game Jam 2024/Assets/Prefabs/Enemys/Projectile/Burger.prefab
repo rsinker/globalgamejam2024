@@ -149,11 +149,11 @@ MonoBehaviour:
   m_moving: ChickenWalking
   m_attack: ShootForBurger
   m_AttackCooldown: 3.5
-  m_AttackLength: 1
-  m_AttackFrequency: 0.1
+  m_AttackLength: 3
+  m_AttackFrequency: 0.25
   _Projectile: {fileID: 5105917285123675444, guid: a8177c8906bf8384790b7153a3022733, type: 3}
   _SpawnPoint: {fileID: 823241180815581175}
-  m_ProjectileSpeed: 3
+  m_ProjectileSpeed: 6
   m_BulletFollow: 0.411
 --- !u!114 &885861219620043677
 MonoBehaviour:
