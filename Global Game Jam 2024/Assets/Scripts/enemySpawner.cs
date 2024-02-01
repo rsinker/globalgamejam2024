@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
         Vector2Int enemySpawnPoint = new Vector2Int(Random.Range(boardManager.currentRoom.left, boardManager.currentRoom.right), Random.Range(boardManager.currentRoom.bottom, boardManager.currentRoom.top));
 
-        if (boardManager.currentRoom.GetTile(enemySpawnPoint.x, enemySpawnPoint.y) != "floor")
+        if (boardManager.currentRoom.GetTile(enemySpawnPoint.x, enemySpawnPoint.y) != null && boardManager.currentRoom.GetTile(enemySpawnPoint.x, enemySpawnPoint.y) != "floor")
         {
             enemySpawnPoint = boardManager.currentRoom.GetValidPosition(enemySpawnPoint);
         }
